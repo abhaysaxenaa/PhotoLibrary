@@ -56,6 +56,23 @@ public class adminController {
 		
 	}
 	
+	public void addUser(ActionEvent event) throws IOException{
+		
+		String username = userName.getText().toLowerCase();
+		if (username == null /* || username.exists() || username == "admin" */) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("Admin Error");
+			alert.setContentText("Please enter a valid user name.");
+			alert.showAndWait();
+			return;
+		} else {
+			//add user to admin system.
+			//update the list.
+			userName.clear();
+		}
+		//save
+	}
+	
 	
 	
 		public Alert ConfirmationAlert(String function) {

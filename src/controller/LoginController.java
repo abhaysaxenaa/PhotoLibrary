@@ -27,6 +27,7 @@ public class LoginController {
 		String username = userName.getText();
 		FXMLLoader loader;
 		Parent manager;
+		
 		try {
 			
 		
