@@ -2,9 +2,11 @@ package app;
 
 import java.io.IOException;
 
-import controller.LoginController;
+
+import controller.loginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -13,35 +15,31 @@ import javafx.stage.Stage;
 public class Photos extends Application {
 	
 	//public static Superuser driver = new Superuser(); //NEED TO IMPLEMENT THIS FIRST
-	public Stage mainStage;
+	public Stage primaryStage;
 
 	@Override
-	public void start(Stage mainStage) throws Exception {
+	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
 		try {
 			
-			
-			FXMLLoader fxmlLoader = new FXMLLoader();
-			fxmlLoader.setLocation(getClass().getResource("/View/Login.fxml"));
-			//FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/Login.fxml"));
-			AnchorPane root = (AnchorPane) fxmlLoader.load();
+			FXMLLoader loader = new FXMLLoader();
+			 loader.setLocation(
+					 getClass().getResource("/View/Login.fxml"));
+			 Parent root = (Parent)loader.load();
 
-			
-			Scene scene = new Scene(root);
-			mainStage.setResizable(false);
-			mainStage.setTitle("Photo Library");
-			mainStage.setScene(scene);
-			mainStage.show();
-			LoginController loginController = fxmlLoader.getController();
-			loginController.start(mainStage);
+	        loginController cont =
+	       		 loader.getController();
+	        cont.start(primaryStage); 
+	        primaryStage.setTitle("Photo Album");
+	        primaryStage.setScene(new Scene(root));
+	        primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
-		System.out.println("Implement SuperUser");
-		//driver = Superuser.load();
+		
 		launch(args);
 	}
 

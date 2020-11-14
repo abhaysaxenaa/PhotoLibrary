@@ -24,4 +24,3 @@
       <Button layoutX="12.0" layoutY="353.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="98.0" text="Logout" />
       <TextArea layoutX="127.0" layoutY="100.0" prefHeight="292.0" prefWidth="461.0" />
    </children>
-</AnchorPane>

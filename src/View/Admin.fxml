@@ -16,11 +16,11 @@
       </Label>
       <Label prefHeight="17.0" prefWidth="0.0" />
       <Label layoutX="21.0" layoutY="78.0" prefHeight="17.0" prefWidth="74.0" text="Username :" />
-      <TextField layoutX="97.0" layoutY="74.0" prefHeight="27.0" prefWidth="271.0" />
-      <Button layoutX="379.0" layoutY="74.0" mnemonicParsing="false" text="Create User" />
-      <Button layoutX="488.0" layoutY="73.0" mnemonicParsing="false" text="Delete User" />
-      <Button layoutX="488.0" layoutY="125.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="84.0" text="List User" />
-      <Button layoutX="500.0" layoutY="344.0" mnemonicParsing="false" text="Logout" />
-      <TextArea layoutX="23.0" layoutY="125.0" prefHeight="262.0" prefWidth="406.0" />
+      <TextField fx:id="userName" layoutX="97.0" layoutY="74.0" prefHeight="27.0" prefWidth="271.0" />
+      <Button fx:id="createButton" layoutX="379.0" layoutY="74.0" mnemonicParsing="false" text="Create User" />
+      <Button fx:id="deleteButton" layoutX="488.0" layoutY="73.0" mnemonicParsing="false" text="Delete User"  onAction="#delete" />
+      <Button fx:id="listUserButton" layoutX="488.0" layoutY="125.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="84.0" text="List User" />
+      <Button fx:id="logoutButton"layoutX="500.0" layoutY="344.0" mnemonicParsing="false" text="Logout" onAction="#logout"/>
+      <ListView  fx:id="listView" layoutX="23.0" layoutY="125.0" prefHeight="262.0" prefWidth="406.0" />
    </children>
 </AnchorPane>
