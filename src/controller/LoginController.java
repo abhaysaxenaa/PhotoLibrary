@@ -14,15 +14,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class loginController {
+public class LoginController {
 	
 	@FXML private Button loginButton;
 	@FXML private TextField userName;
 	
-	
-	public void start(Stage primaryStage) {
-		
-	}
+	//Call a driver to the Photos.java class in 'src'.
 	
 	@FXML
 	public void login(ActionEvent event) {
@@ -43,6 +40,7 @@ public class loginController {
 				appStage.setScene(adminScene);
 				appStage.show();
 			}
+			//Implement check for user.
 			else if(username != "admin" && username != null){
 				loader = new FXMLLoader(getClass().getResource("/View/User.fxml"));
 				manager = (Parent) loader.load();
