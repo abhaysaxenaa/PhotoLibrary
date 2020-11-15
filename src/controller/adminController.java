@@ -52,10 +52,15 @@ public class adminController {
 	
 	@FXML
 	public void deleteUser(ActionEvent event) throws IOException{
-		
-		
+		User user = listView.getSelectionModel().getSelectedItem();
+		Alert confirmation = ConfirmationAlert("Are you Sure");
+		if (confirmation.showAndWait().get() == ButtonType.YES) {
+			listView.getItems().remove(user);
+			listView.refresh();
+			
+		}
 	}
-	
+	@FXML
 	public void addUser(ActionEvent event) throws IOException{
 		
 		String username = userName.getText().toLowerCase();
@@ -73,7 +78,10 @@ public class adminController {
 		//save
 	}
 	
-	
+	@FXML
+	public void listUser(ActionEvent event) throws IOException{
+		
+	}
 	
 		public Alert ConfirmationAlert(String function) {
 			//MODIFIED: Added a more specific confirmation dialog.

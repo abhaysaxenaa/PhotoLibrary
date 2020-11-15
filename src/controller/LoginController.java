@@ -48,7 +48,7 @@ public class LoginController {
 				userController usercontroller = loader.getController();
 				Scene userScene = new Scene(manager);
 				Stage appStage = (Stage)((Node) event.getSource()).getScene().getWindow();
-				usercontroller.start();
+				usercontroller.start(appStage);
 				appStage.setScene(userScene);
 				appStage.show();
 			}

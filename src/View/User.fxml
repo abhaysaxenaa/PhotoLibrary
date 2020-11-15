@@ -16,11 +16,11 @@
       </Label>
       <Label layoutX="24.0" layoutY="66.0" text="Album Name : " />
       <TextField layoutX="113.0" layoutY="61.0" prefHeight="27.0" prefWidth="475.0" />
-      <Button layoutX="8.0" layoutY="100.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Add Album " />
-      <Button layoutX="8.0" layoutY="180.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Delete Album " />
-      <Button layoutX="9.0" layoutY="140.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Rename Album " />
-      <Button layoutX="8.0" layoutY="219.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Open Album " />
-      <Button layoutX="8.0" layoutY="261.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Search Photos" />
-      <Button layoutX="12.0" layoutY="353.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="98.0" text="Logout" />
-      <TextArea layoutX="127.0" layoutY="100.0" prefHeight="292.0" prefWidth="461.0" />
+      <Button  fx:id="addAlbum" layoutX="8.0" layoutY="100.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Add Album " onAction="#addAlbum"/>
+      <Button  fx:id="deleteAlbum"layoutX="8.0" layoutY="180.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Delete Album " onAction="#deleteAlbum"/>
+      <Button  fx:id="renameAlbum"layoutX="9.0" layoutY="140.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Rename Album " onAction="#renameAlbum"/>
+      <Button  fx:id="openAlbum"layoutX="8.0" layoutY="219.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Open Album " onAction="#openAlbum"/>
+      <Button  fx:id="searchPhotos"layoutX="8.0" layoutY="261.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="111.0" text="Search Photos" onAction="#searchPhotos"/>
+      <Button  fx:id="logout"layoutX="12.0" layoutY="353.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="98.0" text="Logout" onAction="#logout"/>
+      <ListView  fx:id="listView" layoutX="127.0" layoutY="100.0" prefHeight="292.0" prefWidth="461.0" />
    </children>
