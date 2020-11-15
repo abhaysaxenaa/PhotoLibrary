@@ -13,6 +13,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.listUser;
+import model.User;
 
 public class LoginController {
 	
@@ -27,6 +29,7 @@ public class LoginController {
 		String username = userName.getText();
 		FXMLLoader loader;
 		Parent manager;
+		//public static listUser checker = Photos.checker; USE IN USER CHECK.
 		
 		try {
 			
@@ -60,7 +63,7 @@ public class LoginController {
 			e.printStackTrace();
 		}
 			
-		}
+	}
 	
 	public void errorAlert(String error) {
 		   Alert alert =  new Alert(AlertType.ERROR);

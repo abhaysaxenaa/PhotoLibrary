@@ -8,10 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 //import model.Superuser;
+import model.listUser;
 
 public class Photos extends Application {
 	
-	//public static Superuser driver = new Superuser(); //NEED TO IMPLEMENT THIS FIRST
+	//public static listUser driver = new listUser();
 	public Stage primaryStage;
 
 	@Override

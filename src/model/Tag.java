@@ -3,7 +3,11 @@ package model;
 import java.io.Serializable;
 
 public class Tag implements Serializable{
-	private String name, value;
+	
+	//private String name, value;
+	
+	//Changed to public:
+	public String name, value;
 	
 	public Tag(String name, String value) {
 		this.name = name;

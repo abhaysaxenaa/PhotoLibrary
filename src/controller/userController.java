@@ -51,7 +51,7 @@ public class userController {
 		Alert confirmation = ConfirmationAlert("Are you Sure");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			if(newName != null) {
-				if(newName.equals())
+				//if(newName.equals())
 			}
 		}
 	}
