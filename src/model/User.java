@@ -8,11 +8,11 @@ import java.util.ArrayList;
 public class User implements Serializable {
 
 	private String username;
-	private ArrayList<Album> albums;
+	private ArrayList<Album> allAlbums;
 	
 	public User(String username) {
 		this.username = username;
-		albums = new ArrayList<Album>();
+		allAlbums = new ArrayList<Album>();
 	}
 	
 	public String getUsername() {
@@ -20,7 +20,7 @@ public class User implements Serializable {
 	}
 	
 	public ArrayList<Album> getAlbums(){
-		return albums;
+		return allAlbums;
 	}
 	
 	public String toString() {
@@ -33,13 +33,24 @@ public class User implements Serializable {
 	
 	//Similar methods to Github
 	public void createAlbum(Album newAlbum) {
-		albums.add(newAlbum);
+	allAlbums.add(newAlbum);
 	}
 	
 	public void deleteAlbum(int idx) {
-		albums.remove(idx);
+		allAlbums.remove(idx);
 	}
 	
+	public boolean checkAlbumInList(Album album) {
+		for (int i = 0; i < allAlbums.size(); i++) {
+			if (album.equals(allAlbums.get(i))) {
+				return true;
+				
+				//Set new current user
+				//Set logged in to true
+			}
+		}
+		return false;
+	}
 	//public ArrayList<Photo> getSortedPhotos(){};
 	
 	//Storing and Loading

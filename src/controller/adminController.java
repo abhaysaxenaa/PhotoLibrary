@@ -1,7 +1,11 @@
 package controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -18,13 +22,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.User;
+import model.listUser;
 
 public class adminController {
 	@FXML private Button  createButton, deleteButton, listUserbutton, logoutButton;
 	@FXML private TextField userName;
-	@FXML private ListView<User> listView;
+	@FXML private static ListView<User> listView;
 	
-	public ArrayList<User> userList = new ArrayList();
+	public static ArrayList<User> userList = new ArrayList();
+	private static final  String path = "data/dat.dat";
+	File data = new File(path);
+	listUser userlist;
+	
 	
 	public void start() {
 		if(userList != null) {
@@ -34,6 +43,8 @@ public class adminController {
 			listView.setVisible(false);
 		}
 	}
+	
+	
 	
 	@FXML
 	public void logout(ActionEvent event) throws IOException{
@@ -50,6 +61,8 @@ public class adminController {
 		
 	}
 	
+	
+	
 	@FXML
 	public void deleteUser(ActionEvent event) throws IOException{
 		User user = listView.getSelectionModel().getSelectedItem();
@@ -60,30 +73,45 @@ public class adminController {
 			
 		}
 	}
+	
+	
+	
+	
 	@FXML
 	public void addUser(ActionEvent event) throws IOException{
 		
 		String username = userName.getText().toLowerCase();
-		if (username == null /* || username.exists() || username == "admin" */) {
+		User newUser = new User(username);
+		if (username == null  || userlist.checkUserInList(username) == true || username == "admin") {
 			Alert alert = new Alert(AlertType.ERROR);
 			alert.setTitle("Admin Error");
 			alert.setContentText("Please enter a valid user name.");
 			alert.showAndWait();
 			return;
 		} else {
-			//add user to admin system.
-			//update the list.
+			
+			listUser.addUser(newUser);
+			try {
+				listUser.save(userlist);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 			userName.clear();
 		}
 		//save
 	}
 	
+	
+	
 	@FXML
 	public void listUser(ActionEvent event) throws IOException{
-		
+		listView.setVisible(true);
+		listView.refresh();
 	}
 	
-		public Alert ConfirmationAlert(String function) {
+	
+	
+	public Alert ConfirmationAlert(String function) {
 			//MODIFIED: Added a more specific confirmation dialog.
 			Alert confirmation = new Alert(AlertType.CONFIRMATION);
 			confirmation.setTitle("Confirmation Dialog");
@@ -93,7 +121,17 @@ public class adminController {
 			confirmation.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 
 			return confirmation;
-		}
+	}
 	
-
+		
+		
+		
+	public static void save(User app) throws IOException{
+		FileOutputStream fileOutputStream = new FileOutputStream(path);
+		ObjectOutputStream o  = new ObjectOutputStream(fileOutputStream);
+		o.writeObject(new ArrayList<>(Arrays.asList(listView.getItems().toArray())));
+		o.close();
+	}
+	
+	
 }

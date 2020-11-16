@@ -7,6 +7,7 @@ public class Album implements Serializable{
 	
 	private String name;
 	private ArrayList<Photo> photos;
+	private ArrayList<Album> allAlbums;
 	
 	public Album(String name) {
 		this.name = name;
@@ -32,6 +33,8 @@ public class Album implements Serializable{
 	public boolean equals(Album other) {
 		return name.equals(other.name);
 	}
-	
+	public void rename(String name) {
+		this.name = name;
+	}
 	
 }
