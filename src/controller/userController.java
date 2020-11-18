@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
@@ -19,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import model.Album;
+import model.Photo;
 import model.User;
 import model.listUser;
 
@@ -112,12 +114,30 @@ public class userController {
 	
 	@FXML
 	public void openAlbum(ActionEvent event) throws IOException{
+		Album selectedAlbum = listView.getSelectionModel().getSelectedItem();
 		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AlbumDetails.fxml"));
+		Parent parent = (Parent) loader.load();
+		albumController controller = loader.<albumController>getController();
+		Scene scene = new Scene(parent);
+		Stage appStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		controller.start(user,selectedAlbum);
+		appStage.setScene(scene);
+		appStage.show();
 	}
 	
 	@FXML
 	public void searchAlbum(ActionEvent event) throws IOException{
-		
+		Album selectedAlbum = listView.getSelectionModel().getSelectedItem();
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Search.fxml"));
+		Parent parent = (Parent) loader.load();
+		searchController controller = loader.<searchController>getController();
+		Scene scene = new Scene(parent);
+		Stage appStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		controller.start(selectedAlbum);
+		appStage.setScene(scene);
+		appStage.show();
 	}
 	
 	

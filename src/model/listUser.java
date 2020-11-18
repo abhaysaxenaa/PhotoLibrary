@@ -9,14 +9,14 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class listUser {
-
+	private  static final long serialVersionUID = 9221355046218690511L;
 	public static ArrayList<User> allUsers;
 	public User current;
 	public boolean loggedIn;
-	private static final  String path = "data/dat.dat";
-	File data = new File(path);
+	private static   String photofile = "data/dat.dat";
+	File data = new File(photofile);
 	
-	public listUser() {
+	public listUser() {  
 		allUsers = new ArrayList<User>();
 		//allUsers.add(new User("admin"));
 		//this.current = null;
@@ -43,7 +43,7 @@ public class listUser {
 		allUsers.remove(user);
 	}
 	
-	public ArrayList<User> getList(){
+	public static ArrayList<User> getList(){
 		return allUsers;
 	}
 	
@@ -70,7 +70,7 @@ public class listUser {
 	}
 	
 	public static listUser read() throws IOException, ClassNotFoundException{
-		FileInputStream fileInputStream = new FileInputStream(path);
+		FileInputStream fileInputStream = new FileInputStream(photofile);
 		ObjectInputStream o = new ObjectInputStream(fileInputStream);
 		listUser userlist = (listUser) o.readObject();
 		o.close();
@@ -79,9 +79,9 @@ public class listUser {
 	
 	
 	public static void save(listUser userList) throws IOException, ClassNotFoundException{
-		FileOutputStream fileOutputStream = new FileOutputStream(path);
+		FileOutputStream fileOutputStream = new FileOutputStream(photofile);
 		ObjectOutputStream o  = new ObjectOutputStream(fileOutputStream);
-		o.writeObject(userList);
+		o.writeObject(getList());
 		o.close();
 	}
 	

@@ -14,13 +14,13 @@
             <Font size="28.0" />
          </font>
       </Label>
-      <TextField alignment="CENTER" layoutX="42.0" layoutY="95.0" promptText="Date" />
-      <TextField alignment="CENTER" layoutX="42.0" layoutY="142.0" promptText="Tag Name" />
-      <TextArea layoutX="211.0" layoutY="66.0" prefHeight="281.0" prefWidth="387.0" />
-      <Button layoutX="71.0" layoutY="183.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="95.0" text="Search" />
-      <Button layoutX="75.0" layoutY="331.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="95.0" text="Back" />
-      <Button layoutX="75.0" layoutY="250.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="95.0" text="Add Tag" />
-      <Button layoutX="75.0" layoutY="290.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="95.0" text="Remove Tag" />
-      <Button layoutX="427.0" layoutY="354.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="147.0" text="Copy to a New Album " />
+      <TextField  fx:id="date" alignment="CENTER" layoutX="42.0" layoutY="95.0" promptText="Date" />
+      <TextField  fx:id="tagName" alignment="CENTER" layoutX="42.0" layoutY="142.0" promptText="Tag Name" />
+      <ListView  fx:id="listView" layoutX="211.0" layoutY="66.0" prefHeight="281.0" prefWidth="387.0" />
+      <Button  fx:id="searchButton" layoutX="71.0" layoutY="183.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="95.0" text="Search" />
+      <Button  fx:id="backButton" layoutX="75.0" layoutY="331.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="95.0" text="Back" />
+      <Button  fx:id="addTagButton"layoutX="75.0" layoutY="250.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="95.0" text="Add Tag" />
+      <Button  fx:id="deleteTagButton"layoutX="75.0" layoutY="290.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="95.0" text="Remove Tag" />
+      <Button  fx:id="copyButton"layoutX="427.0" layoutY="354.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="147.0" text="Copy to a New Album " />
    </children>
 </AnchorPane>

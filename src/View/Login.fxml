@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
 	<children>
       <Label layoutX="245" layoutY="95.0" prefHeight="23.0" prefWidth="200" text="Photo Library" textAlignment="CENTER">

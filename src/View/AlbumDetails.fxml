@@ -32,6 +32,6 @@
       <TextField layoutX="133.0" layoutY="46.0" prefHeight="27.0" prefWidth="161.0" />
       <TextField layoutX="133.0" layoutY="86.0" prefHeight="27.0" prefWidth="161.0" />
       <Button layoutX="51.0" layoutY="359.0" mnemonicParsing="false" text="Back" />
-      <TextArea layoutX="386.0" layoutY="130.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" promptText="                                                                                                                                                                                                                                                                                                                                            Display" />
+      <ListView layoutX="386.0" layoutY="130.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="200.0" promptText="                                                                                                                                                                                                                                                                                                                                            Display" />
    </children>
 </AnchorPane>
