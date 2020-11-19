@@ -11,9 +11,11 @@ import javafx.stage.Stage;
 //import model.Superuser;
 //import model.listUser;
 import javafx.stage.WindowEvent;
+import model.listUser;
 
 public class Photos extends Application {
 	
+	public static  listUser driver = new listUser();
 	//public static listUser driver = new listUser();
 	public Stage primaryStage;
 

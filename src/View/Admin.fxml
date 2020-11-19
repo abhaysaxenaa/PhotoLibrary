@@ -5,16 +5,24 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.adminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.adminController">
    <children>
-      <Button fx:id="createButton" layoutX="462.0" layoutY="46.0" mnemonicParsing="false" text="Create User " onAction="#addUser"/>
-      <Button fx:id="deleteButton" layoutX="466.0" layoutY="116.0" mnemonicParsing="false" text="Delete User" onAction="#deleteUser"/>
-      <Button fx:id="listUserButton" layoutX="474.0" layoutY="173.0" mnemonicParsing="false" text="List User" onAction="#listUser" />
-      <Button fx:id="logoutButton" layoutX="540.0" layoutY="302.0" mnemonicParsing="false" text="Logout" onAction="#logout"/>
-      <ListView fx:id="listView" layoutX="180.0" layoutY="130.0" prefHeight="200.0" prefWidth="200.0" />
-      <Label layoutX="46.0" layoutY="22.0" text="Admin DashBoard " />
-      <TextField  fx:id="userName" layoutX="180.0" layoutY="73.0" />
+      <Button fx:id="createButton" layoutX="395.0" layoutY="160.0" mnemonicParsing="false" onAction="#addUser" text="Create User " />
+      <Button fx:id="deleteButton" layoutX="395.0" layoutY="223.0" mnemonicParsing="false" onAction="#deleteUser" prefHeight="27.0" prefWidth="86.0" text="Delete User" />
+      <Button fx:id="listUserButton" layoutX="395.0" layoutY="279.0" mnemonicParsing="false" onAction="#listUser" prefHeight="27.0" prefWidth="86.0" text="List User" />
+      <Button fx:id="logoutButton" layoutX="522.0" layoutY="23.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
+      <ListView fx:id="listView" layoutX="46.0" layoutY="116.0" prefHeight="241.0" prefWidth="293.0" />
+      <Label layoutX="29.0" layoutY="14.0" text="Admin DashBoard " textFill="#c30d0d">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font></Label>
+      <TextField fx:id="userName" layoutX="146.0" layoutY="73.0" />
+      <Label layoutX="29.0" layoutY="75.0" text="User Name:" textFill="#1196d9">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

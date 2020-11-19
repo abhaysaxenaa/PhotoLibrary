@@ -7,17 +7,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Bl;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="addTagButton" layoutX="349.0" layoutY="227.0" mnemonicParsing="false" onAction="#addTag" text="Add Tag" textAlignment="CENTER" textFill="#222020" />
+      <Button fx:id="addTagButton" layoutX="349.0" layoutY="227.0" mnemonicParsing="false" onAction="#addTag" style="-fx-background-color: Teal;" text="Add Tag" textAlignment="CENTER" textFill="#222020" />
       <View layoutX="132.0" layoutY="152.0" />
-      <Label layoutX="103.0" layoutY="101.0" text="Tag Type: ">
+      <Label layoutX="103.0" layoutY="101.0" text="Tag Type: " textFill="#ab0afa">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="103.0" layoutY="162.0" text="Tag Value: ">
+      <Label layoutX="103.0" layoutY="162.0" text="Tag Value: " textFill="#ceed07">
          <font>
             <Font size="18.0" />
          </font>

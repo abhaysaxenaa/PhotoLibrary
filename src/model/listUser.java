@@ -13,18 +13,18 @@ public class listUser implements Serializable{
 	
 	private  static final long serialVersionUID = 42L;
 	
-	public  ArrayList<User> allUsers;
+	public  ArrayList<String> allUsers;
 	//public User current;
 	//public boolean loggedIn;
 	
 	public final String admin = "admin";
 	
-	public  final String storeDir = "data";
-	public  final String storeFile = "dat.dat";
+	public  final static String storeDir = "data";
+	public  final static String storeFile = "dat.dat";
 	
 	public listUser() {  
-		allUsers = new ArrayList<User>();
-		allUsers.add(new User("admin"));
+		allUsers = new ArrayList<String>();
+		//allUsers.add(new User("admin"));
 		//allUsers.add(new User("admin"));
 		//this.current = null;
 		//this.loggedIn = false;
@@ -42,19 +42,19 @@ public class listUser implements Serializable{
 		return false;
 	}
 	
-	public  void addUser(User user) {
+	public  void addUser(String user) {
 		allUsers.add(user);
 	}
 	
-	public void deleteUser(User user) {
+	public void deleteUser(String user) {
 		allUsers.remove(user);
 	}
 	
-	public  ArrayList<User> getList(){
+	public  ArrayList<String> getList(){
 		return allUsers;
 	}
 	
-	public User getUser(String user) {
+	public String getUser(String user) {
 		for(int i = 0; i < allUsers.size(); i++) {
 			if(allUsers.get(i).equals(user)) {
 				return allUsers.get(i);
@@ -76,19 +76,19 @@ public class listUser implements Serializable{
 		
 	}
 	
-	public  listUser read() throws IOException, ClassNotFoundException{
-		ObjectInputStream o = new ObjectInputStream(new FileInputStream(storeDir+File.separator + storeFile));
-		listUser userList = (listUser)o.readObject();
-		o.close();
+	public static listUser read() throws IOException, ClassNotFoundException {
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + storeFile));
+		listUser userList = (listUser) ois.readObject();
+		ois.close();
 		return userList;
-		}
+		
+	}
 	
 	
-	public void write(listUser userList) throws IOException{
-
-		ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream(storeDir+File.separator + storeFile));
-		o.writeObject(userList);
-		o.close();
+	public static void write(listUser pdApp) throws IOException {
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(storeDir + File.separator + storeFile));
+		oos.writeObject(pdApp);
+		oos.close();
 	}
 	
 	

@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import app.Photos;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,15 +31,13 @@ import model.listUser;
 public class adminController {
 	@FXML private Button  createButton, deleteButton, listUserbutton, logoutButton;
 	@FXML private TextField userName;
-	@FXML private static ListView<User> listView;
+	@FXML private ListView<String> listView;
 	
-	public  ArrayList<User> allUsers = new ArrayList();
-	public static final String storeDir = "data";
-	public static final String storeFile = "dat.dat";
-	public listUser userlist;
+	public  ArrayList<String> allUsers = new ArrayList();
+	public listUser userlist = Photos.driver;
 	
 	
-	public ObservableList<User> obsList; 
+	public ObservableList<String> obsList; 
 	
 	public void bootup() throws ClassNotFoundException, IOException {
 			
@@ -73,7 +72,7 @@ public class adminController {
 	
 	@FXML
 	public void deleteUser(ActionEvent event) throws IOException, ClassNotFoundException{
-		User user = listView.getSelectionModel().getSelectedItem();
+		String user = listView.getSelectionModel().getSelectedItem();
 		Alert confirmation = ConfirmationAlert("Are you Sure");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			obsList.remove(user);
@@ -91,13 +90,13 @@ public class adminController {
 	public void addUser(ActionEvent event) throws IOException, ClassNotFoundException{
 		
 		String username = userName.getText().toLowerCase();
-		User newUser = new User(username);
+		//String newUser = new User(username);
 		if (username == null  || userlist.checkUserInList(username) == true || username == "admin") {
 			errorAlert("Pleae enter a valid UserName");
 			return;
 		} else {
-			allUsers.add(newUser);
-			obsList.add(newUser);
+			allUsers.add(username);
+			obsList.add(username);
 			listView.setItems(obsList);
 			
 			
@@ -144,20 +143,6 @@ public class adminController {
 		
 		
 		
-	public listUser read() throws IOException, ClassNotFoundException{
-		ObjectInputStream o = new ObjectInputStream(new FileInputStream(storeDir+File.separator + storeFile));
-		listUser userList = (listUser)o.readObject();
-		o.close();
-		return userList;
-		}
-	
-	
-	public void write(listUser userList) throws IOException, ClassNotFoundException{
-
-		ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream(storeDir+File.separator + storeFile));
-		o.writeObject(userList);
-		o.close();
-	}
 	
 	
 }
