@@ -13,14 +13,14 @@ public class listUser implements Serializable{
 	
 	private  static final long serialVersionUID = 42L;
 	
-	public static ArrayList<User> allUsers;
+	public  ArrayList<User> allUsers;
 	//public User current;
 	//public boolean loggedIn;
 	
 	public final String admin = "admin";
 	
-	public static final String storeDir = "data";
-	public static final String storeFile = "dat.dat";
+	public  final String storeDir = "data";
+	public  final String storeFile = "dat.dat";
 	
 	public listUser() {  
 		allUsers = new ArrayList<User>();
@@ -42,7 +42,7 @@ public class listUser implements Serializable{
 		return false;
 	}
 	
-	public static void addUser(User user) {
+	public  void addUser(User user) {
 		allUsers.add(user);
 	}
 	
@@ -50,11 +50,11 @@ public class listUser implements Serializable{
 		allUsers.remove(user);
 	}
 	
-	public static ArrayList<User> getList(){
+	public  ArrayList<User> getList(){
 		return allUsers;
 	}
 	
-	public static User getUser(String user) {
+	public User getUser(String user) {
 		for(int i = 0; i < allUsers.size(); i++) {
 			if(allUsers.get(i).equals(user)) {
 				return allUsers.get(i);
@@ -76,7 +76,7 @@ public class listUser implements Serializable{
 		
 	}
 	
-	public static listUser read() throws IOException, ClassNotFoundException{
+	public  listUser read() throws IOException, ClassNotFoundException{
 		ObjectInputStream o = new ObjectInputStream(new FileInputStream(storeDir+File.separator + storeFile));
 		listUser userList = (listUser)o.readObject();
 		o.close();
@@ -84,7 +84,7 @@ public class listUser implements Serializable{
 		}
 	
 	
-	public static void write(listUser userList) throws IOException, ClassNotFoundException{
+	public void write(listUser userList) throws IOException{
 
 		ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream(storeDir+File.separator + storeFile));
 		o.writeObject(userList);

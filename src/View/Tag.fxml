@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Bl;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button fx:id="addTagButton" layoutX="349.0" layoutY="227.0" mnemonicParsing="false" onAction="#addTag" text="Add Tag" textAlignment="CENTER" textFill="#222020" />
       <View layoutX="132.0" layoutY="152.0" />
@@ -24,6 +24,6 @@
       </Label>
       <TextField layoutX="210.0" layoutY="96.0" prefHeight="27.0" prefWidth="244.0" promptText="ex: person, location" />
       <TextField layoutX="210.0" layoutY="160.0" prefHeight="27.0" prefWidth="244.0" promptText="ex: John, Prague" />
-      <Button layoutX="66.0" layoutY="338.0" mnemonicParsing="false" text="Back" />
+      <Button fx:id="backButton" layoutX="66.0" layoutY="338.0" mnemonicParsing="false" onAction="#back" text="Back" />
    </children>
 </AnchorPane>

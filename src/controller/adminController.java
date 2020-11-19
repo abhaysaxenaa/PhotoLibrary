@@ -32,16 +32,20 @@ public class adminController {
 	@FXML private TextField userName;
 	@FXML private static ListView<User> listView;
 	
-	public static ArrayList<User> allUsers = new ArrayList();
+	public  ArrayList<User> allUsers = new ArrayList();
 	public static final String storeDir = "data";
 	public static final String storeFile = "dat.dat";
-	private listUser userlist;
+	public listUser userlist;
 	
 	
 	public ObservableList<User> obsList; 
 	
-	public void bootup() {
-//			listView.setItems(obsList);
+	public void bootup() throws ClassNotFoundException, IOException {
+			
+			userlist = userlist.read();
+			allUsers = userlist.getList();
+			obsList = FXCollections.observableArrayList(allUsers);
+			listView.setItems(obsList);
 			listView.refresh();
 			listView.getSelectionModel().select(0);
 			listView.setVisible(false);	
@@ -92,8 +96,10 @@ public class adminController {
 			errorAlert("Pleae enter a valid UserName");
 			return;
 		} else {
-			obsList.add(newUser);
 			allUsers.add(newUser);
+			obsList.add(newUser);
+			listView.setItems(obsList);
+			
 			
 			try {
 				listUser.write(userlist);
@@ -138,7 +144,7 @@ public class adminController {
 		
 		
 		
-	public static listUser read() throws IOException, ClassNotFoundException{
+	public listUser read() throws IOException, ClassNotFoundException{
 		ObjectInputStream o = new ObjectInputStream(new FileInputStream(storeDir+File.separator + storeFile));
 		listUser userList = (listUser)o.readObject();
 		o.close();
@@ -146,7 +152,7 @@ public class adminController {
 		}
 	
 	
-	public static void write(listUser userList) throws IOException, ClassNotFoundException{
+	public void write(listUser userList) throws IOException, ClassNotFoundException{
 
 		ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream(storeDir+File.separator + storeFile));
 		o.writeObject(userList);
