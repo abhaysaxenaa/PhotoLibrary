@@ -13,7 +13,7 @@ public class listUser implements Serializable{
 	
 	private  static final long serialVersionUID = 42L;
 	
-	public  ArrayList<String> allUsers;
+	public  ArrayList<User> allUsers;
 	//public User current;
 	//public boolean loggedIn;
 	
@@ -23,7 +23,7 @@ public class listUser implements Serializable{
 	public  final static String storeFile = "dat.dat";
 	
 	public listUser() {  
-		allUsers = new ArrayList<String>();
+		allUsers = new ArrayList<User>();
 		//allUsers.add(new User("admin"));
 		//allUsers.add(new User("admin"));
 		//this.current = null;
@@ -42,19 +42,19 @@ public class listUser implements Serializable{
 		return false;
 	}
 	
-	public  void addUser(String user) {
+	public  void addUser(User user) {
 		allUsers.add(user);
 	}
 	
-	public void deleteUser(String user) {
+	public void deleteUser(User user) {
 		allUsers.remove(user);
 	}
 	
-	public  ArrayList<String> getList(){
+	public  ArrayList<User> getList(){
 		return allUsers;
 	}
 	
-	public String getUser(String user) {
+	public User getUser(User user) {
 		for(int i = 0; i < allUsers.size(); i++) {
 			if(allUsers.get(i).equals(user)) {
 				return allUsers.get(i);

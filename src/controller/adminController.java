@@ -31,13 +31,13 @@ import model.listUser;
 public class adminController {
 	@FXML private Button  createButton, deleteButton, listUserbutton, logoutButton;
 	@FXML private TextField userName;
-	@FXML private ListView<String> listView;
+	@FXML private ListView<User> listView;
 	
-	public  ArrayList<String> allUsers = new ArrayList();
+	public  ArrayList<User> allUsers = new ArrayList();
 	public listUser userlist = Photos.driver;
 	
 	
-	public ObservableList<String> obsList; 
+	public ObservableList<User> obsList; 
 	
 	public void bootup() throws ClassNotFoundException, IOException {
 			
@@ -72,7 +72,7 @@ public class adminController {
 	
 	@FXML
 	public void deleteUser(ActionEvent event) throws IOException, ClassNotFoundException{
-		String user = listView.getSelectionModel().getSelectedItem();
+		User user = listView.getSelectionModel().getSelectedItem();
 		Alert confirmation = ConfirmationAlert("Are you Sure");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			obsList.remove(user);
@@ -90,13 +90,13 @@ public class adminController {
 	public void addUser(ActionEvent event) throws IOException, ClassNotFoundException{
 		
 		String username = userName.getText().toLowerCase();
-		//String newUser = new User(username);
+		User newUser = new User(username);
 		if (username == null  || userlist.checkUserInList(username) == true || username == "admin") {
 			errorAlert("Pleae enter a valid UserName");
 			return;
 		} else {
-			allUsers.add(username);
-			obsList.add(username);
+			allUsers.add(newUser);
+			//obsList.add(username);
 			listView.setItems(obsList);
 			
 			
