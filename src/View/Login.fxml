@@ -6,16 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
 	<children>
-      <Label layoutX="245" layoutY="95.0" prefHeight="23.0" prefWidth="200" text="Photo Library" textAlignment="CENTER">
+      <Label layoutX="140.0" layoutY="47.0" prefHeight="71.0" prefWidth="305.0" text="         Photo Library" textAlignment="JUSTIFY" textFill="#dd1111">
          <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label layoutX="130" layoutY="158.0" text="Username:" />
+            <Font size="32.0" />
+         </font></Label>
+      <Label layoutX="130" layoutY="158.0" text="Username:" textFill="#111010" />
       <TextField fx:id="userName" layoutX="203" layoutY="158" prefHeight="27.0" prefWidth="195.0" promptText="Username" />
-      <Button fx:id="loginButton" layoutX="272" layoutY="231.0" mnemonicParsing="false" onAction="#login" onMouseClicked="#login" text="Log In" />
+      <Button fx:id="loginButton" layoutX="272" layoutY="231.0" mnemonicParsing="false" onAction="#loginUser" onMouseClicked="#loginUser" prefHeight="42.0" prefWidth="122.0" text="Log In" textFill="#09dd73" />
    </children>
 </AnchorPane>

@@ -5,23 +5,16 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
 
-<AnchorPane  prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.adminController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.adminController">
    <children>
-      <Label layoutX="14.0" layoutY="23.0" prefHeight="29.0" prefWidth="218.0" text="Admin Dashboard" textFill="#e80808">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-      <Label prefHeight="17.0" prefWidth="0.0" />
-      <Label layoutX="21.0" layoutY="78.0" prefHeight="17.0" prefWidth="74.0" text="Username :" />
-      <TextField fx:id="userName" layoutX="97.0" layoutY="74.0" prefHeight="27.0" prefWidth="271.0" />
-      <Button fx:id="createButton" layoutX="379.0" layoutY="74.0" mnemonicParsing="false" text="Create User" onAction="#addUser"/>
-      <Button fx:id="deleteButton" layoutX="488.0" layoutY="73.0" mnemonicParsing="false" text="Delete User"  onAction="#deleteUser" />
-      <Button fx:id="listUserButton" layoutX="488.0" layoutY="125.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="84.0" text="List User" onAction="#listUser" />
-      <Button fx:id="logoutButton"layoutX="500.0" layoutY="344.0" mnemonicParsing="false" text="Logout" onAction="#logout"/>
-      <ListView  fx:id="listView" layoutX="23.0" layoutY="125.0" prefHeight="262.0" prefWidth="406.0" />
+      <Button fx:id="createButton" layoutX="462.0" layoutY="46.0" mnemonicParsing="false" text="Create User " onAction="#addUser"/>
+      <Button fx:id="deleteButton" layoutX="466.0" layoutY="116.0" mnemonicParsing="false" text="Delete User" onAction="#deleteUser"/>
+      <Button fx:id="listUserButton" layoutX="474.0" layoutY="173.0" mnemonicParsing="false" text="List User" onAction="#listUser" />
+      <Button fx:id="logoutButton" layoutX="540.0" layoutY="302.0" mnemonicParsing="false" text="Logout" onAction="#logout"/>
+      <ListView fx:id="listView" layoutX="180.0" layoutY="130.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="46.0" layoutY="22.0" text="Admin DashBoard " />
+      <TextField  fx:id="userName" layoutX="180.0" layoutY="73.0" />
    </children>
 </AnchorPane>

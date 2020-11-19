@@ -6,18 +6,25 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class listUser {
-	private  static final long serialVersionUID = 9221355046218690511L;
+public class listUser implements Serializable{
+	
+	private  static final long serialVersionUID = 42L;
+	
 	public static ArrayList<User> allUsers;
-	public User current;
-	public boolean loggedIn;
-	private static   String photofile = "data/dat.dat";
-	File data = new File(photofile);
+	//public User current;
+	//public boolean loggedIn;
+	
+	public final String admin = "admin";
+	
+	public static final String storeDir = "data";
+	public static final String storeFile = "dat.dat";
 	
 	public listUser() {  
 		allUsers = new ArrayList<User>();
+		allUsers.add(new User("admin"));
 		//allUsers.add(new User("admin"));
 		//this.current = null;
 		//this.loggedIn = false;
@@ -70,18 +77,17 @@ public class listUser {
 	}
 	
 	public static listUser read() throws IOException, ClassNotFoundException{
-		FileInputStream fileInputStream = new FileInputStream(photofile);
-		ObjectInputStream o = new ObjectInputStream(fileInputStream);
-		listUser userlist = (listUser) o.readObject();
+		ObjectInputStream o = new ObjectInputStream(new FileInputStream(storeDir+File.separator + storeFile));
+		listUser userList = (listUser)o.readObject();
 		o.close();
-		return userlist;
+		return userList;
 		}
 	
 	
-	public static void save(listUser userList) throws IOException, ClassNotFoundException{
-		FileOutputStream fileOutputStream = new FileOutputStream(photofile);
-		ObjectOutputStream o  = new ObjectOutputStream(fileOutputStream);
-		o.writeObject(getList());
+	public static void write(listUser userList) throws IOException, ClassNotFoundException{
+
+		ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream(storeDir+File.separator + storeFile));
+		o.writeObject(userList);
 		o.close();
 	}
 	

@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,71 +10,58 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.listUser;
-import model.User;
+//import model.listUser;
+//import model.User;
 
 public class LoginController {
 	
 	
-	@FXML private Button loginButton;
-	@FXML private TextField userName;
-	
-	
-	//Call a driver to the Photos.java class in 'src'.
-	
-	public void start(Stage appstage) {
-		
-	}
+	@FXML public Button loginButton;
+	@FXML public TextField userName;
+	public Stage primaryStage;
+
 	@FXML
-	public void login(ActionEvent event) throws ClassNotFoundException, IOException {
-		
-		String username = userName.getText();
+	public void loginUser(ActionEvent event) throws ClassNotFoundException, IOException {
+
+		String username = userName.getText().toLowerCase().trim();
+		listUser userlist;
 		FXMLLoader loader;
 		Parent manager;
-		//public static listUser checker = Photos.checker; USE IN USER CHECK.
 		
-		try {
-			listUser userlist = null;
-			 userlist = listUser.read();
-			
-			 if(userlist.checkUserInList(username)) {
-				
-			
-			
-				if(username.equals("admin")) {
-					loader = new FXMLLoader(getClass().getResource("/View/Admin.fxml"));
-					manager = (Parent) loader.load();
-					adminController admincontroller = loader.getController();
-					Scene adminScene = new Scene(manager);
-					Stage appStage = (Stage)((Node) event.getSource()).getScene().getWindow();
-					admincontroller.start();
-					appStage.setScene(adminScene);
-					appStage.show();
-				}
-			//Implement check for user.
-				else if(username != "admin" && username != null){
-					loader = new FXMLLoader(getClass().getResource("/View/User.fxml"));
-					manager = (Parent) loader.load();
-					userController usercontroller = loader.getController();
-					Scene userScene = new Scene(manager);
-					Stage appStage = (Stage)((Node) event.getSource()).getScene().getWindow();
-					usercontroller.start(appStage);
-					appStage.setScene(userScene);
-					appStage.show();
-			}
-			else {
-				errorAlert("Please enter a valid input");
-			}
+		try{
+			if(username.equals("admin")) {
+
+			loader = new FXMLLoader(getClass().getResource("/View/Admin.fxml"));
+			manager = (Parent) loader.load();
+			adminController admincontroller = loader.getController();
+			Scene adminScene = new Scene(manager);
+			Stage appStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+			admincontroller.bootup();
+			appStage.setScene(adminScene);
+			appStage.show();
 		}
-		}
-		catch(IOException e) {
-			e.printStackTrace();
-		}
+	//Implement check for user.
+//		else if(username != "admin" && username != null){
+//			loader = new FXMLLoader(getClass().getResource("/View/User.fxml"));
+//			manager = (Parent) loader.load();
+//			userController usercontroller = loader.getController();
+//			Scene userScene = new Scene(manager);
+//			Stage appStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+//			usercontroller.start(appStage);
+//			appStage.setScene(userScene);
+//			appStage.show();
 			
+		else {
+			errorAlert("Please enter a valid input");
+			userName.clear();
+		}
+	}catch (IOException e) {
+		e.printStackTrace();}
+
 	}
 	
 	public void errorAlert(String error) {
@@ -86,5 +72,4 @@ public class LoginController {
 		   alert.setContentText(content);
 		   alert.showAndWait();
 	}
-	
 }

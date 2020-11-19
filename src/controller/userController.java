@@ -1,11 +1,11 @@
 package controller;
 
 import java.io.IOException;
-
-
+import java.security.AccessController;
 import java.util.ArrayList;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,13 +35,17 @@ public class userController {
 	@FXML 
 	private TextField albumName;
 	
-	private ArrayList<Album> albumlist = new ArrayList<Album>();
+	
+	private ArrayList<Album> allAlbums = new ArrayList<Album>();
 	private User user;
-	private ArrayList<User> users;
+	private ArrayList<User> allUsers;
 	private Album album;
 	private listUser userlist;
+	
+	private ObservableList<Album> obsList =  FXCollections.observableArrayList(); 
 
-	public void start(Stage appStage) {
+	public void start(User user) {
+			this.user = user;
 			listView.setItems(FXCollections.observableArrayList(user.getAlbums()));
 			listView.getSelectionModel().select(0);
 			
@@ -50,7 +54,7 @@ public class userController {
 	
 	
 	@FXML
-	public void addAlbum(ActionEvent event) throws IOException{
+	public void addAlbum(ActionEvent event) throws IOException, ClassNotFoundException{
 		String newAlbum = albumName.getText().trim();
 		Album album = new Album(newAlbum);
 		
@@ -60,7 +64,11 @@ public class userController {
 		else if(user.checkAlbumInList(album)) {
 			errorAlert(" Album Name already exists");
 		}
-		//else user.);
+		else {
+			obsList.add(album);
+			allAlbums.add(album);
+			listUser.write(userlist);
+		}
 	}
 	
 	
@@ -75,7 +83,7 @@ public class userController {
 			if(newName == null) {
 				errorAlert("Empty Album Name");
 			}
-			if(newName.equals(selectedAlbum.getName())) {
+			else if(newName.equals(selectedAlbum.getName())) {
 				errorAlert("Name already exists");
 			}
 			else {
@@ -84,7 +92,7 @@ public class userController {
 				selectedAlbum.rename(newName);
 			}
 				try {
-					listUser.save(userlist);
+					listUser.write(userlist);
 				}catch(Exception e) {
 					e.printStackTrace();
 				}
@@ -101,10 +109,11 @@ public class userController {
 		Album album = listView.getSelectionModel().getSelectedItem();
 		Alert confirmation = ConfirmationAlert("Are you Sure");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
-			user.getAlbums().remove(album);
+			obsList.remove(album);
+			user.deleteAlbum(album);
 			listView.getItems().remove(album);
 			try {
-				listUser.save(userlist);
+				listUser.write(userlist);
 			}catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -118,7 +127,7 @@ public class userController {
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AlbumDetails.fxml"));
 		Parent parent = (Parent) loader.load();
-		albumController controller = loader.<albumController>getController();
+		albumController controller = loader.getController();
 		Scene scene = new Scene(parent);
 		Stage appStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		controller.start(user,selectedAlbum);

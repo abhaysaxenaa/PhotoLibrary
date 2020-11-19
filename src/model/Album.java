@@ -5,13 +5,15 @@ import java.util.ArrayList;
 
 public class Album implements Serializable{
 	
+	private static final long serialVersionUID = 42L;
+	
 	private String name;
-	private ArrayList<Photo> photos;
+	private ArrayList<Photo> allPhotos;
 	private ArrayList<Album> allAlbums;
 	
 	public Album(String name) {
 		this.name = name;
-		photos = new ArrayList<Photo>();
+		allPhotos = new ArrayList<Photo>();
 	}
 	
 	public void setName(String name) {
@@ -23,11 +25,11 @@ public class Album implements Serializable{
 	}
 	
 	public ArrayList<Photo> getPhoto(){
-		return this.photos;
+		return this.allPhotos;
 	}
 	
 	public int getPhotoCount() {
-		return this.photos.size();
+		return this.allPhotos.size();
 	}
 	
 	public boolean equals(Album other) {
@@ -35,6 +37,17 @@ public class Album implements Serializable{
 	}
 	public void rename(String name) {
 		this.name = name;
+	}
+	
+	public void addPhoto(Photo photo) {
+		allPhotos.add(photo);
+	}
+	public void remove(Photo photo) {
+		allPhotos.remove(photo);
+		
+	}
+	public ArrayList<Photo> getPhotos(){
+		return allPhotos;
 	}
 	
 }
