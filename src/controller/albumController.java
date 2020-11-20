@@ -59,7 +59,10 @@ public class albumController {
 	public void start() {
 		update();
 		if (!allPhotos.isEmpty()) {
-			listView.getSelectionModel().select(0);
+			listView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
+				thumbnail();
+			update();
+			});
 			ArrayList<String> allAlbums = new ArrayList<String>();
 			copylist.setItems(FXCollections.observableArrayList(allAlbums));
 			movelist.setItems(FXCollections.observableArrayList(allAlbums));

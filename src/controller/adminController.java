@@ -123,8 +123,8 @@ public class adminController {
 			//MODIFIED: Added a more specific confirmation dialog.
 			Alert confirmation = new Alert(AlertType.CONFIRMATION);
 			confirmation.setTitle("Confirmation Dialog");
-			confirmation.setHeaderText("Operation: "+ function + "ing a song.");
-			confirmation.setContentText("Are you sure you want to " + function.toLowerCase() + " this song?");
+			confirmation.setHeaderText("Operation: "+ function );
+			confirmation.setContentText(function);
 
 			confirmation.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 

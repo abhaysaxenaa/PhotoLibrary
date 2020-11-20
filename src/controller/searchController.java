@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -50,6 +50,7 @@ public class searchController {
 	listUser userlist = Photos.driver;
 	
 	public ArrayList<Photo> allPhotos = new ArrayList<Photo>();
+	
 
 	public void start() {
 		// TODO Auto-generated method stub
@@ -60,6 +61,8 @@ public class searchController {
 	@FXML
 	public void search(ActionEvent event) {
 		allPhotos= photosInAlbum();
+		LocalDate from, to;
+		
 		
 	}
 	@FXML
@@ -79,9 +82,16 @@ public class searchController {
 		
 	}
 	
-	@FXML
-	public void back(ActionEvent event) {
+public void back(ActionEvent event) throws IOException {
 		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/User.fxml"));
+		Parent parent = (Parent) loader.load();
+		userController controller = loader.<userController>getController();
+		Scene scene = new Scene(parent);
+		Stage appStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		controller.bootUp();
+		appStage.setScene(scene);
+		appStage.show();
 	}
 	
 	

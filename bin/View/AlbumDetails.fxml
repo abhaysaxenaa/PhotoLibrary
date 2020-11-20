@@ -11,20 +11,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"  xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.albumController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.albumController">
    <children>
-      <Button fx:id="addButton" layoutX="25.0" layoutY="46.0" mnemonicParsing="false" onAction="#addPhoto" prefHeight="32.0" prefWidth="108.0"  text="Add Photo" textFill="#edf50e" />
-      <Button fx:id="captionButton" layoutX="25.0" layoutY="86.0" mnemonicParsing="false" onAction="#captionPhoto" prefHeight="32.0" prefWidth="108.0" text="Caption  Photo" textFill="#e7eb11" textOverrun="CENTER_ELLIPSIS">
+      <Button fx:id="addButton" layoutX="25.0" layoutY="46.0" mnemonicParsing="false" onAction="#addPhoto" prefHeight="32.0" prefWidth="108.0" style="-fx-background-color: Teal;" text="Add Photo" textFill="#edf50e" />
+      <Button fx:id="captionButton" layoutX="25.0" layoutY="86.0" mnemonicParsing="false" onAction="#captionPhoto" prefHeight="32.0" prefWidth="108.0" style="-fx-background-color: Teal;" text="Caption  Photo" textFill="#e7eb11" textOverrun="CENTER_ELLIPSIS">
          <font>
             <Font size="10.0" />
          </font>
       </Button>
-      <Button fx:id="removeButton" layoutX="25.0" layoutY="130.0" mnemonicParsing="false" onAction="#removePhoto" prefHeight="32.0" prefWidth="108.0" text="Remove Photo" textFill="#e8e4e4" />
-      <Button fx:id="addTagButton" layoutX="25.0" layoutY="184.0" mnemonicParsing="false"  prefHeight="32.0" prefWidth="98.0" text="Add Tag" onAction="#addTag"/>
-      <Button fx:id="deleteTagButton" layoutX="25.0" layoutY="224.0" mnemonicParsing="false"  prefHeight="32.0" prefWidth="98.0" text="Delete Tag" onAction="#deleteTag" />
-      <Button fx:id="copyButton" layoutX="300.0" layoutY="46.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="98.0"  text="Copy Photo" textFill="#15d7da" onAction="#copyPhoto" />
-      <Button fx:id="moveButton" layoutX="300.0" layoutY="86.0" mnemonicParsing="false"  prefHeight="32.0" prefWidth="98.0"  text="Move Photo" textFill="#09e89d" onAction="#movePhoto"/>
-      <Button fx:id="logoutButton" layoutX="498.0" layoutY="10.0" mnemonicParsing="false"  prefHeight="32.0" prefWidth="62.0" text="Logout" onAction="#logout"/>
+      <Button fx:id="removeButton" layoutX="25.0" layoutY="130.0" mnemonicParsing="false" onAction="#removePhoto" prefHeight="32.0" prefWidth="108.0" style="-fx-background-color: red;" text="Remove Photo" textFill="#e8e4e4" />
+      <Button fx:id="addTagButton" layoutX="25.0" layoutY="184.0" mnemonicParsing="false" onAction="#addTag" prefHeight="32.0" prefWidth="98.0" text="Add Tag" />
+      <Button fx:id="deleteTagButton" layoutX="25.0" layoutY="224.0" mnemonicParsing="false" onAction="#deleteTag" prefHeight="32.0" prefWidth="98.0" text="Delete Tag" />
+      <Button fx:id="copyButton" layoutX="300.0" layoutY="46.0" mnemonicParsing="false" onAction="#copyPhoto" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: Yellow;" text="Copy Photo" textFill="#15d7da" />
+      <Button fx:id="moveButton" layoutX="300.0" layoutY="86.0" mnemonicParsing="false" onAction="#movePhoto" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: yellow;" text="Move Photo" textFill="#09e89d" />
+      <Button fx:id="logoutButton" layoutX="498.0" layoutY="10.0" mnemonicParsing="false" onAction="#logout" prefHeight="32.0" prefWidth="62.0" text="Logout" />
       <Label layoutX="288.0" layoutY="14.0" text="Album Details " textFill="#e80808">
          <font>
             <Font size="18.0" />
@@ -32,18 +32,18 @@
       </Label>
       <TextField fx:id="addPhoto" layoutX="133.0" layoutY="49.0" prefHeight="27.0" prefWidth="161.0" />
       <TextField fx:id="captionPhoto" layoutX="133.0" layoutY="86.0" prefHeight="27.0" prefWidth="161.0" />
-      <Button fx:id="backButton" layoutX="51.0" layoutY="359.0" mnemonicParsing="false" text="Back"  onAction="#back"/>
+      <Button fx:id="backButton" layoutX="51.0" layoutY="359.0" mnemonicParsing="false" onAction="#back" text="Back" />
       <ListView layoutX="356.0" layoutY="125.0" prefHeight="253.0" prefWidth="230.0" />
       <ImageView id="photoDisplay" fx:id="photoDisplay" fitHeight="174.0" fitWidth="210.0" focusTraversable="true" layoutX="137.0" layoutY="153.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
       <ChoiceBox fx:id="copylist" layoutX="398.0" layoutY="49.0" prefHeight="27.0" prefWidth="181.0" />
       <ChoiceBox fx:id="movelist" layoutX="398.0" layoutY="89.0" prefWidth="181.0" />
-      <Button fx:id="nextPhoto" layoutX="228.0" layoutY="117.0" mnemonicParsing="false"  text="&gt;" onAction="#nextPhoto"/>
-      <Button fx:id="previousPhoto" layoutX="201.0" layoutY="117.0" mnemonicParsing="false"  prefHeight="9.0" prefWidth="18.0" text="&lt;" onAction="#previousPhoto"/>
+      <Button fx:id="nextPhoto" layoutX="228.0" layoutY="117.0" mnemonicParsing="false" onAction="#nextPhoto" text="&gt;" />
+      <Button fx:id="previousPhoto" layoutX="201.0" layoutY="117.0" mnemonicParsing="false" onAction="#previousPhoto" prefHeight="9.0" prefWidth="18.0" text="&lt;" />
       <TableView layoutX="107.0" layoutY="330.0" prefHeight="59.0" prefWidth="210.0">
         <columns>
-          <TableColumn fx:id="TagDisplay" prefWidth="105.0" text="Tag Value" />
-          <TableColumn minWidth="1.0" prefWidth="104.0" text="Tag Pair" />
+          <TableColumn fx:id="TagValue" prefWidth="105.0" text="Tag Value" />
+          <TableColumn fx:id="TagPair" minWidth="1.0" prefWidth="104.0" text="Tag Pair" />
         </columns>
       </TableView>
    </children>

@@ -47,7 +47,8 @@ public class LoginController {
 			appStage.show();
 		}
 	//Implement check for user.
-		else if(username != "admin" && !(username.equals(str)) /*&& userlist.checkUserInList(username) == true */){
+			else if(userlist.checkUserInList(username) == true) {
+				if(username != "admin" && !(username.equals(str)) /*&& userlist.checkUserInList(username) == true */){
 			loader = new FXMLLoader(getClass().getResource("/View/User.fxml"));
 			manager = (Parent) loader.load();
 			userController usercontroller = loader.getController();
@@ -56,7 +57,8 @@ public class LoginController {
 			usercontroller.bootUp();
 			appStage.setScene(userScene);
 			appStage.show();
-		}
+				}
+			}
 			
 		else {
 			errorAlert("Please enter a valid input");

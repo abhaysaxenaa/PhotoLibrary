@@ -49,6 +49,7 @@ public class userController {
 			
 		 
 		//update();
+		obsList = FXCollections.observableArrayList(allAlbums);
 		if(!allAlbums.isEmpty()) {
 			listView.getSelectionModel().select(0);
 			
@@ -73,7 +74,7 @@ public class userController {
 		else {
 			//obsList.add(newAlbum);
 			allAlbums.add(album);
-			
+			obsList.add(album);
 			listUser.write(userlist);
 		}
 	}
@@ -159,7 +160,7 @@ public class userController {
 	
 	@FXML
 	public void logout(ActionEvent event) throws IOException{
-		
+		listUser.write(userlist);
 		Alert confirmation = ConfirmationAlert("Are you Sure");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Login.fxml"));

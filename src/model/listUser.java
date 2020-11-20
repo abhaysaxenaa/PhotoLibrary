@@ -32,7 +32,7 @@ public class listUser implements Serializable{
 	
 	public boolean checkUserInList(String user) {
 		for (int i = 0; i < allUsers.size(); i++) {
-			if (user.equals(allUsers.get(i))) {
+			if (user.equals(allUsers.get(i).getUsername())) {
 				return true;
 				
 				//Set new current user
