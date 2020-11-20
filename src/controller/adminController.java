@@ -54,7 +54,7 @@ public class adminController {
 	
 	@FXML
 	public void logout(ActionEvent event) throws IOException{
-		
+		listUser.write(userlist);
 		Alert confirmation = ConfirmationAlert("Are you Sure");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Login.fxml"));

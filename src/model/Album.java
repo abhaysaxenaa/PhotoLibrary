@@ -9,7 +9,7 @@ public class Album implements Serializable{
 	
 	private String name;
 	private ArrayList<Photo> allPhotos;
-	private ArrayList<Album> allAlbums;
+//	private ArrayList<Album> allAlbums;
 	
 	public Album(String name) {
 		this.name = name;

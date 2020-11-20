@@ -59,14 +59,26 @@ public class User implements Serializable {
 		this.allAlbums = allAlbums;
 	}
 	public boolean checkAlbumInList(String album) {
+		
+//		if(allAlbums.contains(album)) {
+//			System.out.println(album);
+//			return true;
+//			
+//		}
+			
+		System.out.println(album );
+			
 		for (int i = 0; i < allAlbums.size(); i++) {
 			if (album.equals(allAlbums.get(i).getName())) {
+				System.out.println(album + " " + i);
+				
+			}
 				return true;
 				
 				//Set new current user
 				//Set logged in to true
-			}
-		}
+//			}
+	}
 		return false;
 	}
 	

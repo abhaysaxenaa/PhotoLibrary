@@ -42,6 +42,7 @@ public class userController {
 	public ArrayList<String> allUsers = new ArrayList<String>();
 	public Album album;
 	public listUser userlist = Photos.driver;
+	public String username;
 	
 	public ObservableList<Album> obsList =  FXCollections.observableArrayList(); 
 
@@ -73,9 +74,17 @@ public class userController {
 		}
 		else {
 			//obsList.add(newAlbum);
+			System.out.println("new:" + newAlbum);
+			
 			allAlbums.add(album);
+			//user.createAlbum(album);
 			obsList.add(album);
+			listView.setItems(obsList);
 			listUser.write(userlist);
+			for(int i = 0; i< allAlbums.size(); i++) {
+				String name =allAlbums.get(i).getName();
+			System.out.println("allAlbums: "+ name);}
+			System.out.println("userlist: " + userlist);
 		}
 	}
 	
@@ -173,18 +182,19 @@ public class userController {
 	}
 	
 	
-//	public void update() {
-//		allUsers.clear();
-//		for (int i = 0; i < userlist.getList().size(); i++) {
-//			allAlbums.add(userlist.getList().get(i).getUsername());
-//		}
-//		listView.refresh();
-//		obsList = FXCollections.observableArrayList(allAlbums);
-//		listView.setItems(obsList);
-//		listView.refresh();
-//
-//	
-//	}
+	public void update() {
+		user.setText(username + "'s Album List:");
+		// tfName.setText(listview.getSelectionModel().getSelectedItem());
+		user = userlist.getUser(username);
+		
+		allAlbums.clear();
+		for (int i = 0; i < user.getAlbums().size(); i++) {
+			allAlbums.add(user.getAlbums().get(i));
+		}
+		obsList = FXCollections.observableArrayList(allAlbums);
+		listView.setItems(obsList);
+		listView.refresh();
+	}
 	
 		public Alert ConfirmationAlert(String function) {
 			//MODIFIED: Added a more specific confirmation dialog.
