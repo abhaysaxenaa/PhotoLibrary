@@ -14,7 +14,7 @@ public class listUser implements Serializable{
 	private  static final long serialVersionUID = 42L;
 	
 	public  ArrayList<User> allUsers;
-	//public User current;
+	public User present;
 	//public boolean loggedIn;
 	
 	public final String admin = "admin";
@@ -46,8 +46,8 @@ public class listUser implements Serializable{
 		allUsers.add(user);
 	}
 	
-	public void deleteUser(User user) {
-		allUsers.remove(user);
+	public void deleteUser(int idx) {
+		allUsers.remove(idx);
 	}
 	
 	public  ArrayList<User> getList(){
@@ -63,7 +63,13 @@ public class listUser implements Serializable{
 		return null;
 	}
 	
+	public User getCurrentUser() {
+		return present;
+	}
 	
+	public void setCurrent(User present) {
+		this.present = present;
+	}
 	public String toString() {
 		if(allUsers == null) {
 			return "There are no users";

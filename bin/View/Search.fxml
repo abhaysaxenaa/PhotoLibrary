@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.searchController">
    <children>
       <Label layoutX="213.0" layoutY="28.0" prefHeight="35.0" prefWidth="253.0" text="Search For Photos" textFill="#f20404">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <TextField  fx:id="date" alignment="CENTER" layoutX="42.0" layoutY="95.0" promptText="Date" />
-      <TextField  fx:id="tagName" alignment="CENTER" layoutX="42.0" layoutY="142.0" promptText="Tag Name" />
-      <ListView  fx:id="listView" layoutX="211.0" layoutY="66.0" prefHeight="281.0" prefWidth="387.0" />
-      <Button  fx:id="searchButton" layoutX="71.0" layoutY="183.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="95.0" text="Search" />
-      <Button  fx:id="backButton" layoutX="75.0" layoutY="331.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="95.0" text="Back" />
-      <Button  fx:id="addTagButton"layoutX="75.0" layoutY="250.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="95.0" text="Add Tag" />
-      <Button  fx:id="deleteTagButton"layoutX="75.0" layoutY="290.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="95.0" text="Remove Tag" />
-      <Button  fx:id="copyButton"layoutX="427.0" layoutY="354.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="147.0" text="Copy to a New Album " />
+      <TextField fx:id="tagName" alignment="CENTER" layoutX="14.0" layoutY="160.0" promptText="Tag Name" />
+      <TextField fx:id="tagValue" alignment="CENTER" layoutX="14.0" layoutY="199.0" promptText="Tag Name" text="Tag Value" />
+      <Button fx:id="searchButton" layoutX="47.0" layoutY="241.0" mnemonicParsing="false" onAction="#search" prefHeight="35.0" prefWidth="95.0" style="-fx-background-color: Teal;" text="Search" textFill="#f5ebeb" />
+      <Button fx:id="backButton" layoutX="14.0" layoutY="353.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="95.0" text="Back" />
+      <Button fx:id="addTagButton" layoutX="214.0" layoutY="337.0" mnemonicParsing="false" onAction="#addTag" prefHeight="32.0" prefWidth="95.0" style="-fx-background-color: Yellow;" text="Add Tag" />
+      <Button fx:id="removeTagButton" layoutX="316.0" layoutY="337.0" mnemonicParsing="false" onAction="#removeTag" prefHeight="32.0" prefWidth="95.0" style="-fx-background-color: yellow;" text="Remove Tag" />
+      <Button fx:id="createNewAlbumButton" layoutX="435.0" layoutY="337.0" mnemonicParsing="false" onAction="#createNewAlbum" prefHeight="32.0" prefWidth="147.0" style="-fx-background-color: Blue;" text="Copy to a New Album " textFill="WHITE" />
+      <ListView fx:id="searchResults" layoutX="214.0" layoutY="70.0" prefHeight="258.0" prefWidth="368.0" />
+      <DatePicker fx:id="fromDate" layoutX="14.0" layoutY="80.0" promptText="From " />
+      <DatePicker fx:id="toDate" layoutX="15.0" layoutY="121.0" promptText="To" />
    </children>
 </AnchorPane>

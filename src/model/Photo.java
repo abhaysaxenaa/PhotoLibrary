@@ -56,6 +56,7 @@ public class Photo implements Serializable{
 		return date;
 	}
 	
+	
 	//New methods
 	public void addNewTag(String name, String value) {
 		tags.add(new Tag(name, value));
@@ -70,5 +71,12 @@ public class Photo implements Serializable{
 		}
 	}
 	
+	public File getImg() {
+		return this.photoLocation;
+	}
+	
+	public void setImg(File photoLocation) {
+		this.photoLocation = photoLocation;
+	}
 
 }

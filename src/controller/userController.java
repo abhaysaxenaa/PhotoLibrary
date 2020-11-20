@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.AccessController;
 import java.util.ArrayList;
 
+import app.Photos;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,24 +31,29 @@ public class userController {
 	public ListView<Album> listView;
 	
 	@FXML 
-	private Button addAblum, deleteAlbum, renameAlbum, openAlbum, searchPhotos, logout;
+	public Button addAblum, deleteAlbum, renameAlbum, openAlbum, searchPhotos, logout;
 	
 	@FXML 
-	private TextField albumName;
+	public TextField albumName;
 	
 	
-	private ArrayList<Album> allAlbums = new ArrayList<Album>();
-	private User user;
-	private ArrayList<User> allUsers;
-	private Album album;
-	private listUser userlist;
+	public ArrayList<Album> allAlbums = new ArrayList<Album>();
+	public User user;
+	public ArrayList<String> allUsers = new ArrayList<String>();
+	public Album album;
+	public listUser userlist = Photos.driver;
 	
-	private ObservableList<Album> obsList =  FXCollections.observableArrayList(); 
+	public ObservableList<Album> obsList =  FXCollections.observableArrayList(); 
 
-	public void start(User user) {
-			this.user = user;
-			listView.setItems(FXCollections.observableArrayList(user.getAlbums()));
+	public void bootUp() {
+			
+		 
+		//update();
+		if(!allAlbums.isEmpty()) {
 			listView.getSelectionModel().select(0);
+			
+		}
+//			
 			
 	}
 	
@@ -61,12 +67,13 @@ public class userController {
 		if(newAlbum.isEmpty()) {
 			errorAlert("Empty Album Name");
 		}
-		else if(user.checkAlbumInList(album)) {
+		else if(user.checkAlbumInList(newAlbum)== false) {
 			errorAlert(" Album Name already exists");
 		}
 		else {
-			obsList.add(album);
+			//obsList.add(newAlbum);
 			allAlbums.add(album);
+			
 			listUser.write(userlist);
 		}
 	}
@@ -106,11 +113,11 @@ public class userController {
 	
 	@FXML 
 	public void deleteAlbum(ActionEvent event) throws IOException{
-		Album album = listView.getSelectionModel().getSelectedItem();
+		int index = listView.getSelectionModel().getSelectedIndex();
 		Alert confirmation = ConfirmationAlert("Are you Sure");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			obsList.remove(album);
-			user.deleteAlbum(album);
+			user.deleteAlbum(index);
 			listView.getItems().remove(album);
 			try {
 				listUser.write(userlist);
@@ -130,13 +137,13 @@ public class userController {
 		albumController controller = loader.getController();
 		Scene scene = new Scene(parent);
 		Stage appStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		controller.start(user,selectedAlbum);
+		controller.start();
 		appStage.setScene(scene);
 		appStage.show();
 	}
 	
 	@FXML
-	public void searchAlbum(ActionEvent event) throws IOException{
+	public void searchPhotos(ActionEvent event) throws IOException{
 		Album selectedAlbum = listView.getSelectionModel().getSelectedItem();
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Search.fxml"));
@@ -144,7 +151,7 @@ public class userController {
 		searchController controller = loader.<searchController>getController();
 		Scene scene = new Scene(parent);
 		Stage appStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		controller.start(selectedAlbum);
+		controller.start();
 		appStage.setScene(scene);
 		appStage.show();
 	}
@@ -165,13 +172,25 @@ public class userController {
 	}
 	
 	
+//	public void update() {
+//		allUsers.clear();
+//		for (int i = 0; i < userlist.getList().size(); i++) {
+//			allAlbums.add(userlist.getList().get(i).getUsername());
+//		}
+//		listView.refresh();
+//		obsList = FXCollections.observableArrayList(allAlbums);
+//		listView.setItems(obsList);
+//		listView.refresh();
+//
+//	
+//	}
 	
 		public Alert ConfirmationAlert(String function) {
 			//MODIFIED: Added a more specific confirmation dialog.
 			Alert confirmation = new Alert(AlertType.CONFIRMATION);
 			confirmation.setTitle("Confirmation Dialog");
-			confirmation.setHeaderText("Operation: "+ function + "ing a song.");
-			confirmation.setContentText("Are you sure you want to " + function.toLowerCase() + " this song?");
+			confirmation.setHeaderText("Logout Confirmation");
+			confirmation.setContentText("Are you sure you want to logout" );
 
 			confirmation.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 

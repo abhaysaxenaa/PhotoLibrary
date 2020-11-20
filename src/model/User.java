@@ -12,8 +12,9 @@ import java.util.ArrayList;
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 42L;
-	private String username;
-	private ArrayList<Album> allAlbums;
+	public String username;
+	public ArrayList<Album> allAlbums;
+	public User user;
 	
 	public static final String storeDir = "data";
 	public static final String storeFile = "dat.dat";
@@ -22,7 +23,10 @@ public class User implements Serializable {
 		this.username = username;
 		allAlbums = new ArrayList<Album>();
 	}
-	
+	public User getUserName() {
+		return user;
+		
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -47,14 +51,14 @@ public class User implements Serializable {
 	allAlbums.add(newAlbum);
 	}
 	
-	public void deleteAlbum(Album album) {
-		allAlbums.remove(album);
+	public void deleteAlbum(int index) {
+		allAlbums.remove(index);
 	}
 	
 	public void setAlbums(ArrayList<Album> allAlbums) {
 		this.allAlbums = allAlbums;
 	}
-	public boolean checkAlbumInList(Album album) {
+	public boolean checkAlbumInList(String album) {
 		for (int i = 0; i < allAlbums.size(); i++) {
 			if (album.equals(allAlbums.get(i))) {
 				return true;

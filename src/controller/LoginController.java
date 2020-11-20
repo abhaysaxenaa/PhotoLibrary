@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 
+import app.Photos;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,9 +29,10 @@ public class LoginController {
 	public void loginUser(ActionEvent event) throws ClassNotFoundException, IOException {
 
 		String username = userName.getText().toLowerCase().trim();
-		listUser userlist;
+		listUser userlist = Photos.driver;
 		FXMLLoader loader;
 		Parent manager;
+		String str ="";
 		
 		try{
 			if(username.equals("admin")) {
@@ -45,15 +47,16 @@ public class LoginController {
 			appStage.show();
 		}
 	//Implement check for user.
-//		else if(username != "admin" && username != null){
-//			loader = new FXMLLoader(getClass().getResource("/View/User.fxml"));
-//			manager = (Parent) loader.load();
-//			userController usercontroller = loader.getController();
-//			Scene userScene = new Scene(manager);
-//			Stage appStage = (Stage)((Node) event.getSource()).getScene().getWindow();
-//			usercontroller.start(appStage);
-//			appStage.setScene(userScene);
-//			appStage.show();
+		else if(username != "admin" && !(username.equals(str)) /*&& userlist.checkUserInList(username) == true */){
+			loader = new FXMLLoader(getClass().getResource("/View/User.fxml"));
+			manager = (Parent) loader.load();
+			userController usercontroller = loader.getController();
+			Scene userScene = new Scene(manager);
+			Stage appStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+			usercontroller.bootUp();
+			appStage.setScene(userScene);
+			appStage.show();
+		}
 			
 		else {
 			errorAlert("Please enter a valid input");

@@ -11,7 +11,9 @@ public class SerializableImage implements Serializable{
 
 	private int width, height;
 	private int[][] pixels;
+	
 	public SerializableImage(Image image) {
+
 		width = ((int) image.getWidth());
 		height = ((int) image.getHeight());
 		pixels = new int[width][height];
@@ -20,6 +22,8 @@ public class SerializableImage implements Serializable{
 		for (int i = 0; i < width; i++)
 			for (int j = 0; j < height; j++)
 				pixels[i][j] = r.getArgb(i, j);
+	
+		
 	}
 
 	public Image getImage() {
@@ -32,6 +36,17 @@ public class SerializableImage implements Serializable{
 			}
 		}
 		return image;
+	}
+	
+	public void setImage(Image image) {
+		width = ((int) image.getWidth());
+		height = ((int) image.getHeight());
+		pixels = new int[width][height];
+		
+		PixelReader r = image.getPixelReader();
+		for (int i = 0; i < width; i++)
+			for (int j = 0; j < height; j++)
+				pixels[i][j] = r.getArgb(i, j);
 	}
 	
 	

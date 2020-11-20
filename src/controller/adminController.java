@@ -31,23 +31,22 @@ import model.listUser;
 public class adminController {
 	@FXML private Button  createButton, deleteButton, listUserbutton, logoutButton;
 	@FXML private TextField userName;
-	@FXML private ListView<User> listView;
+	@FXML private ListView<String> listView;
 	
-	public  ArrayList<User> allUsers = new ArrayList();
+	public  ArrayList<String> allUsers = new ArrayList();
+	
 	public listUser userlist = Photos.driver;
 	
 	
-	public ObservableList<User> obsList; 
+	public ObservableList<String> obsList; 
 	
 	public void bootup() throws ClassNotFoundException, IOException {
-			
-			userlist = userlist.read();
-			allUsers = userlist.getList();
-			obsList = FXCollections.observableArrayList(allUsers);
-			listView.setItems(obsList);
-			listView.refresh();
-			listView.getSelectionModel().select(0);
 			listView.setVisible(false);	
+			update();
+			if(!allUsers.isEmpty()) {
+				listView.getSelectionModel().select(0);
+				
+			}
 	}
 
 
@@ -72,11 +71,11 @@ public class adminController {
 	
 	@FXML
 	public void deleteUser(ActionEvent event) throws IOException, ClassNotFoundException{
-		User user = listView.getSelectionModel().getSelectedItem();
+		int index = listView.getSelectionModel().getSelectedIndex();
 		Alert confirmation = ConfirmationAlert("Are you Sure");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
-			obsList.remove(user);
-		//	listView.getItems().remove(user);
+			userlist.deleteUser(index);
+			update();
 			listView.refresh();
 			listUser.write(userlist);
 			
@@ -91,12 +90,12 @@ public class adminController {
 		
 		String username = userName.getText().toLowerCase();
 		User newUser = new User(username);
-		if (username == null  || userlist.checkUserInList(username) == true || username == "admin") {
-			errorAlert("Pleae enter a valid UserName");
+		if (username.isEmpty()  || userlist.checkUserInList(username) == true || username.equals("admin")) {
+			errorAlert("Please enter a valid UserName");
 			return;
 		} else {
-			allUsers.add(newUser);
-			//obsList.add(username);
+			userlist.addUser(newUser);
+			update();
 			listView.setItems(obsList);
 			
 			
@@ -142,7 +141,18 @@ public class adminController {
 	}
 		
 		
-		
+	public void update() {
+		allUsers.clear();
+		for (int i = 0; i < userlist.getList().size(); i++) {
+			allUsers.add(userlist.getList().get(i).getUsername());
+		}
+		listView.refresh();
+		obsList = FXCollections.observableArrayList(allUsers);
+		listView.setItems(obsList);
+		listView.refresh();
+
+	
+	}
 	
 	
 }
