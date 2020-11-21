@@ -90,7 +90,7 @@ public class userController {
 			//obsList.add(album);
 			//listView.setItems(obsList);
 			//System.out.println(userlist);
-			//listUser.write(userlist);
+			listUser.write(userlist);
 			User.write(userlist.getCurrentUser());
 			albumName.clear();
 			for(int i = 0; i< allAlbums.size(); i++) {
@@ -104,7 +104,7 @@ public class userController {
 	
 	
 	
-	
+	//CHANGE: Error doesn't pop up.
 	@FXML
 	public void renameAlbum(ActionEvent event) throws IOException{
 		String newName = albumName.getText().trim();
@@ -125,6 +125,7 @@ public class userController {
 				 
 				selectedAlbum.rename(newName);
 				User.write(userlist.getCurrentUser());
+				update();
 				listView.refresh();
 				albumName.clear();
 				try {
@@ -147,6 +148,7 @@ public class userController {
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			
 			user.deleteAlbum(index);
+			update();
 			User.write(userlist.getCurrentUser());
 			listView.getItems().remove(album);
 			try {
