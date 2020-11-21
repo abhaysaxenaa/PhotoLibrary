@@ -85,14 +85,14 @@ public class userController {
 		else {
 			userlist.getCurrentUser().createAlbum(album);
 			System.out.println(userlist);
-			
+			update();
 			//user.createAlbum(album);
-			obsList.add(album);
-			listView.setItems(obsList);
-			System.out.println(userlist);
-			listUser.write(userlist);
+			//obsList.add(album);
+			//listView.setItems(obsList);
+			//System.out.println(userlist);
+			//listUser.write(userlist);
 			User.write(userlist.getCurrentUser());
-			
+			albumName.clear();
 			for(int i = 0; i< allAlbums.size(); i++) {
 				String name =allAlbums.get(i).getName();
 			System.out.println("allAlbums: "+ name);}
