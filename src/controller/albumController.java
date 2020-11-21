@@ -60,7 +60,7 @@ public class albumController {
 	public int nextIndex = 0;
 	
 	public void start() {
-		update();
+		//update();
 		if (!allPhotos.isEmpty()) {
 			listView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
 				thumbnail();

@@ -50,7 +50,7 @@ public class userController {
 	public void bootUp() {
 			
 		 
-		//update();
+		update();
 		
 		/*allAlbums.clear();
 		for (int i = 0; i < allAlbums.size(); i++) {
@@ -91,6 +91,7 @@ public class userController {
 			listView.setItems(obsList);
 			System.out.println(userlist);
 			listUser.write(userlist);
+			User.write(userlist.getCurrentUser());
 			
 			for(int i = 0; i< allAlbums.size(); i++) {
 				String name =allAlbums.get(i).getName();
@@ -108,6 +109,8 @@ public class userController {
 	public void renameAlbum(ActionEvent event) throws IOException{
 		String newName = albumName.getText().trim();
 		Album selectedAlbum = listView.getSelectionModel().getSelectedItem();
+		
+		
 		Alert confirmation = ConfirmationAlert("Are you Sure");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			if(newName == null) {
@@ -115,11 +118,15 @@ public class userController {
 			}
 			else if(newName.equals(selectedAlbum.getName())) {
 				errorAlert("Name already exists");
+			} else if (userlist.getCurrentUser().checkAlbumInList(newName)){
+				errorAlert("Another album with that name exists. Please try another name.");
 			}
 			else {
 				 
 				selectedAlbum.rename(newName);
-			
+				User.write(userlist.getCurrentUser());
+				listView.refresh();
+				albumName.clear();
 				try {
 					listUser.write(userlist);
 				}catch(Exception e) {
@@ -140,7 +147,7 @@ public class userController {
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			
 			user.deleteAlbum(index);
-			
+			User.write(userlist.getCurrentUser());
 			listView.getItems().remove(album);
 			try {
 				listUser.write(userlist);
@@ -195,10 +202,8 @@ public class userController {
 	}
 	
 	
-	/*public void update() {
-		user.setText(username + "'s Album List:");
-		// tfName.setText(listview.getSelectionModel().getSelectedItem());
-		user = userlist.getUser(username);
+	public void update() {
+		user = userlist.getCurrentUser();
 		
 		allAlbums.clear();
 		for (int i = 0; i < user.getAlbums().size(); i++) {
@@ -207,7 +212,7 @@ public class userController {
 		obsList = FXCollections.observableArrayList(allAlbums);
 		listView.setItems(obsList);
 		listView.refresh();
-	}*/
+	}
 	
 		public Alert ConfirmationAlert(String function) {
 			//MODIFIED: Added a more specific confirmation dialog.
