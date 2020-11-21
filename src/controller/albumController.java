@@ -136,7 +136,8 @@ public class albumController {
         	Calendar date = Calendar.getInstance();
         	
         	Photo newPhoto = new Photo(img);
-        	album.addPhoto(newPhoto);
+        	//album.addPhoto(newPhoto);
+        	userlist.getCurrentUser().getCurrentAlbum().addPhoto(newPhoto);
         	obsList.add(newPhoto);
         	listUser.write(userlist);
         	

@@ -85,7 +85,7 @@ public class listUser implements Serializable{
 	public static listUser read() throws IOException, ClassNotFoundException {
 		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + storeFile));
 		listUser userList = (listUser) ois.readObject();
-		ois.close();
+			ois.close();
 		return userList;
 		
 	}

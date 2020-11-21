@@ -90,8 +90,8 @@ public class userController {
 			//obsList.add(album);
 			//listView.setItems(obsList);
 			//System.out.println(userlist);
-			listUser.write(userlist);
-			User.write(userlist.getCurrentUser());
+			//listUser.write(userlist);
+			//User.write(userlist.getCurrentUser());
 			albumName.clear();
 			for(int i = 0; i< allAlbums.size(); i++) {
 				String name =allAlbums.get(i).getName();
@@ -100,6 +100,7 @@ public class userController {
 		//	listUser.write(userlist);
 			System.out.println(user.getUsername());
 		}
+		listUser.write(userlist);
 	}
 	
 	
@@ -163,7 +164,10 @@ public class userController {
 	@FXML
 	public void openAlbum(ActionEvent event) throws IOException{
 		//Album selectedAlbum = listView.getSelectionModel().getSelectedItem();
-		
+		albumController.album = listView.getSelectionModel().getSelectedItem();
+//		albumController.user = user;
+//		albumController.allAlbums = allAlbums;
+		System.out.println(user.getCurrentAlbum());
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AlbumDetails.fxml"));
 		Parent parent = (Parent) loader.load();
 		albumController controller = loader.getController();
