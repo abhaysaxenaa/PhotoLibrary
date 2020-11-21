@@ -46,6 +46,7 @@ public class photoDisplay {
 	public static ArrayList<Tag> allTags = new ArrayList<>();
 	public static ArrayList<String> tagPair = new ArrayList<>();
 	public ObservableList<String> obsList;
+	public static ArrayList<Photo> allPhotos = new ArrayList<Photo>();
 	public static Photo photo; 
 	public int currIndex;
 	public int previousIndex;
@@ -55,6 +56,11 @@ public class photoDisplay {
 		app_stage.setTitle(userlist.getCurrentUser().getCurrentAlbum().getPhoto().getCaption() + " ");
 		
 		//update();
+		Photo photo = allPhotos.get(0);
+		File file = photo.getImg();
+		Image image = new Image(file.toURI().toString());
+		photoDisplay.setImage(image);
+
 		if(!allTags.isEmpty()) {
 			listView.getSelectionModel().select(0); //select first user
 		}

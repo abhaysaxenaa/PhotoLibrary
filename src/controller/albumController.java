@@ -84,14 +84,16 @@ public class albumController {
 	
 	@FXML
 	public void photoDisplay (ActionEvent event) throws IOException{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/photoDisplay.fxml"));
-		Parent parent = (Parent) loader.load();
-		photoDisplay controller = loader.getController();
-		Scene scene = new Scene(parent);
-		Stage appStage = (Stage)((Node) event.getSource()).getScene().getWindow();
-		controller.start(appStage);
-		appStage.setScene(scene);
-		appStage.show();
+		if (allPhotos.size() > 0) {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/photoDisplay.fxml"));
+			Parent parent = (Parent) loader.load();
+			photoDisplay controller = loader.getController();
+			Scene scene = new Scene(parent);
+			Stage appStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+			controller.start(appStage);
+			appStage.setScene(scene);
+			appStage.show();
+		}
 	}
 	
 	public void displayDate() {
@@ -272,6 +274,10 @@ public class albumController {
 	@FXML
 	public void removePhoto(ActionEvent event) throws ClassNotFoundException, IOException {
 		int photoIdx = listView.getSelectionModel().getSelectedIndex();
+		if (photoIdx < 0) {
+			errorAlert("No photo to delete.");
+			return;
+		}
 		Alert confirmation = ConfirmationAlert("Are you Sure");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			album.remove(photoIdx);
