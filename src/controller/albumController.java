@@ -48,7 +48,8 @@ public class albumController {
 	
 	
 	public static ArrayList<Album> allAlbums;
-	public ArrayList<Photo> allPhotos = new ArrayList<Photo>();
+	public static ArrayList<Photo> allPhotos = new ArrayList<Photo>();
+	public ObservableList<Photo> obsList;
 	
 	public static User user;
 	public listUser userlist = Photos.driver;
@@ -59,7 +60,7 @@ public class albumController {
 	public int nextIndex = 0;
 	
 	public void start() {
-		//update();
+		update();
 		if (!allPhotos.isEmpty()) {
 			listView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
 				thumbnail();
@@ -130,15 +131,16 @@ public class albumController {
         }
         if(file != null) {
         	Image img = new Image(file.toURI().toString());
-        	SerializableImage SImg = new SerializableImage(img);
-        	SImg.setImage(img);
+        	//SerializableImage SImg = new SerializableImage(img);
+        	//SImg.setImage(img);
         	Calendar date = Calendar.getInstance();
         	
         	Photo newPhoto = new Photo(img);
         	//album.addPhoto(newPhoto);
         	userlist.getCurrentUser().getCurrentAlbum().addPhoto(newPhoto);
         	listUser.write(userlist);
-        	
+        	photoView.setImage(img);
+        	update();
         }
 	}
 
@@ -239,15 +241,31 @@ public class albumController {
 	}*/
 	
 	public void update() {
-		currIndex = 0;
-		previousIndex = allPhotos.size()-1;
-		File file;
-		Photo photo = allPhotos.get(0);
-		if(photo != null) {
-			file = photo.getImg();
-			Image image = new Image(file.toURI().toString());
-			photoView.setImage(image);
+		/*if (allPhotos.size() > 0) {
+			currIndex = 0;
+			previousIndex = allPhotos.size()-1;
+			File file;
+			if (allPhotos.get(0) != null) {
+				Photo photo = allPhotos.get(0);
+				if(photo != null) {
+					file = photo.getImg();
+					Image image = new Image(file.toURI().toString());
+					photoView.setImage(image);
+					obsList = FXCollections.observableArrayList(allPhotos);
+					listView.setItems(obsList);
+					listView.refresh();
+				}
+			}
+		}*/
+		
+		allPhotos.clear();
+		for (int i = 0; i < album.getPhotos().size(); i++) {
+			allPhotos.add(album.getPhotos().get(i));
 		}
+
+		obsList = FXCollections.observableArrayList(allPhotos);
+		listView.setItems(obsList);
+		listView.refresh();
 	}
 	
 	//Not sure about album.remove(), should take in an index, was taking Photo photo = listView.getSelectionModel().getSelectedItem();
