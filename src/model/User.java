@@ -63,10 +63,8 @@ public class User implements Serializable {
 		/*else if(user.checkAlbumInList(newAlbum)== false) {
 			errorAlert(" Album Name already exists");
 		}*/
-		if(allAlbums== null) {
-			System.out.println("array is null");
-		}
-		else if (allAlbums.contains(newAlbum)) {
+		
+		if (allAlbums.contains(newAlbum)) {
 			errorAlert(" Album Name already exists");
 		}
 		else {

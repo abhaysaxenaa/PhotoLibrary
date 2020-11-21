@@ -49,7 +49,7 @@ public class albumController {
 	
 	public ArrayList<Album> allAlbums;
 	public ObservableList<Photo> obsList;
-	public ArrayList<Photo> allPhotos;
+	public ArrayList<Photo> allPhotos = new ArrayList<Photo>();
 	
 	public User user;
 	public listUser userlist = Photos.driver;
@@ -64,7 +64,7 @@ public class albumController {
 		if (!allPhotos.isEmpty()) {
 			listView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
 				thumbnail();
-			update();
+	//		update();
 			});
 //			ArrayList<String> allAlbums = new ArrayList<String>();
 //			copylist.setItems(FXCollections.observableArrayList(allAlbums));
@@ -164,8 +164,8 @@ public class albumController {
 			newAlbum.addPhoto(photo);
 			album.remove(listView.getSelectionModel().getSelectedIndex());
 			
-			newAlbum.save(newAlbum);
-			album.save(album);
+			//newAlbum.write(newAlbum);
+			//album.write(album);
 			update();
 		} else {
 			return;
@@ -194,7 +194,7 @@ public class albumController {
 			Photo photo = listView.getSelectionModel().getSelectedItem();
 			newAlbum.addPhoto(photo);
 			
-			newAlbum.save(newAlbum);
+		//	newAlbum.save(newAlbum);
 		} else {
 			return;
 		}

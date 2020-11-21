@@ -153,7 +153,7 @@ public class userController {
 	
 	@FXML
 	public void openAlbum(ActionEvent event) throws IOException{
-		Album selectedAlbum = listView.getSelectionModel().getSelectedItem();
+		//Album selectedAlbum = listView.getSelectionModel().getSelectedItem();
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AlbumDetails.fxml"));
 		Parent parent = (Parent) loader.load();
@@ -167,7 +167,7 @@ public class userController {
 	
 	@FXML
 	public void searchPhotos(ActionEvent event) throws IOException{
-		Album selectedAlbum = listView.getSelectionModel().getSelectedItem();
+		
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Search.fxml"));
 		Parent parent = (Parent) loader.load();
