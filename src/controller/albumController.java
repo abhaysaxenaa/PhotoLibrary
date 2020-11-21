@@ -17,13 +17,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListCell;
+
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.*;
@@ -37,14 +37,17 @@ public class albumController {
 	TextField addPhoto, captionPhoto, copyPhoto, movePhoto;
 	
 	@FXML 
-	ImageView photoDisplay;
+	ImageView photoView;
 	
 	@FXML
-	Button addButton, removebutton, captionButton, moveButton, copyButton, addTagButton, deletetagButton, backButton, logoutButton;
+	Button addButton, removebutton,  moveButton, copyButton,  backButton, logoutButton, photoDisplay;
 	
 	@FXML
-	ChoiceBox<String> copylist, movelist;
+	public Text photoDate;
 	
+	
+	
+	public ArrayList<Album> allAlbums;
 	public ObservableList<Photo> obsList;
 	public ArrayList<Photo> allPhotos;
 	
@@ -63,9 +66,9 @@ public class albumController {
 				thumbnail();
 			update();
 			});
-			ArrayList<String> allAlbums = new ArrayList<String>();
-			copylist.setItems(FXCollections.observableArrayList(allAlbums));
-			movelist.setItems(FXCollections.observableArrayList(allAlbums));
+//			ArrayList<String> allAlbums = new ArrayList<String>();
+//			copylist.setItems(FXCollections.observableArrayList(allAlbums));
+//			movelist.setItems(FXCollections.observableArrayList(allAlbums));
 		}
 		
 //		this.user = user;
@@ -79,6 +82,22 @@ public class albumController {
 		
 	}
 	
+	@FXML
+	public void photoDisplay (ActionEvent event) throws IOException{
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/photoDisplay.fxml"));
+		Parent parent = (Parent) loader.load();
+		photoDisplay controller = loader.<photoDisplay>getController();
+		Scene scene = new Scene(parent);
+		Stage appStage = (Stage)((Node) event.getSource()).getScene().getWindow();
+		controller.start(appStage);
+		appStage.setScene(scene);
+		appStage.show();
+	}
+	
+	public void displayDate() {
+		photoDate.setText("Date: " + userlist.getCurrentUser().getCurrentAlbum().getPhoto().getDate());
+	}
+	
 	public void thumbnail() {
 		Photo photo = listView.getSelectionModel().getSelectedItem();
 		File file;
@@ -90,14 +109,15 @@ public class albumController {
 				String newfilepath = str.substring(stockPhoto, str.length());
 				File img = new File(newfilepath);
 				Image image = new Image(img.toURI().toString());
-				photoDisplay.setImage(image);
+				photoView.setImage(image);
 		}
 			else {
 				Image image = new Image(file.toURI().toString());
-				photoDisplay.setImage(image);
+				photoView.setImage(image);
 			}
 		}
 	}
+	
 	@FXML
 	public void addPhoto(ActionEvent event) throws IOException {
 		FileChooser chooser = new FileChooser();
@@ -122,18 +142,66 @@ public class albumController {
         	
         }
 	}
-//	
+
+	//Change
 	@FXML 
-	public void movePhoto(ActionEvent event) {
+	public void movePhoto(ActionEvent event) throws IOException{
+		String movePath = movePhoto.getText().trim();
+		boolean albumCheck = false;
+		int idx = 0;;
+		//Check if move album exists
+		for (int i = 0; i < allAlbums.size(); i++) {
+			Album temp = allAlbums.get(i);
+			if (temp.getName().equals(movePath)) {
+				idx = i;
+				albumCheck = !albumCheck;
+			}
+		}
 		
+		if (albumCheck) {
+			Album newAlbum = allAlbums.get(idx);
+			Photo photo = listView.getSelectionModel().getSelectedItem();
+			newAlbum.addPhoto(photo);
+			album.remove(listView.getSelectionModel().getSelectedIndex());
+			
+			newAlbum.save(newAlbum);
+			album.save(album);
+			update();
+		} else {
+			return;
+		}
+		errorAlert("Invalid Album");
+			
 	}
 	
-	@FXML
-	public void copyPhoto(ActionEvent event) {
-		
-	}
 	
 	@FXML
+	public void copyPhoto(ActionEvent event) throws IOException{
+		String copyLocation = copyPhoto.getText().trim();
+		boolean albumCheck = false;
+		int idx = 0;;
+		//Check if move album exists
+		for (int i = 0; i < allAlbums.size(); i++) {
+			Album temp = allAlbums.get(i);
+			if (temp.getName().equals(copyLocation)) {
+				idx = i;
+				albumCheck = !albumCheck;
+			}
+		}
+		
+		if (albumCheck) {
+			Album newAlbum = allAlbums.get(idx);
+			Photo photo = listView.getSelectionModel().getSelectedItem();
+			newAlbum.addPhoto(photo);
+			
+			newAlbum.save(newAlbum);
+		} else {
+			return;
+		}
+		errorAlert("Invalid Album");
+	}
+	
+	/*@FXML
 	public void nextPhoto(ActionEvent event) {
 		
 		
@@ -147,7 +215,7 @@ public class albumController {
 			if(photo != null) {
 				file = photo.getImg();
 				Image image = new Image(file.toURI().toString());
-				photoDisplay.setImage(image);
+				photoView.setImage(image);
 			}
 		}
 		
@@ -165,11 +233,11 @@ public class albumController {
 			if(photo != null) {
 				file = photo.getImg();
 				Image image = new Image(file.toURI().toString());
-				photoDisplay.setImage(image);
+				photoView.setImage(image);
 				
 			}
 		}
-	}
+	}*/
 	
 	public void update() {
 		currIndex = 0;
@@ -179,59 +247,50 @@ public class albumController {
 		if(photo != null) {
 			file = photo.getImg();
 			Image image = new Image(file.toURI().toString());
-			photoDisplay.setImage(image);
+			photoView.setImage(image);
 		}
 	}
 	
+	//Not sure about album.remove(), should take in an index, was taking Photo photo = listView.getSelectionModel().getSelectedItem();
 	@FXML
 	public void removePhoto(ActionEvent event) throws ClassNotFoundException, IOException {
-		Photo photo = listView.getSelectionModel().getSelectedItem();
+		int photoIdx = listView.getSelectionModel().getSelectedIndex();
 		Alert confirmation = ConfirmationAlert("Are you Sure");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
-			album.remove(photo);
+			album.remove(photoIdx);
 			obsList.remove(photo);
-			album.remove(photo);
+			album.remove(photoIdx);
 		// implement 	reload();
 		listUser.write(userlist);
 		}
 	}
 	
-	@FXML
-	public void captionPhoto(ActionEvent event) throws ClassNotFoundException, IOException {
-		String caption = captionPhoto.getText().trim();
-		if(caption == null) {
-			errorAlert("please enter a valid caption");
-		}
-		else if (caption == photo.getCaption()) {
-			errorAlert("please enter a different caption to re-caption");
-		}
-		else { 
-			photo.setCaption(caption);
-			listUser.write(userlist);
-		}
-	}
+//	@FXML
+//	public void captionPhoto(ActionEvent event) throws ClassNotFoundException, IOException {
+//		String caption = captionPhoto.getText().trim();
+//		if(caption == null) {
+//			errorAlert("please enter a valid caption");
+//		}
+//		else if (caption == photo.getCaption()) {
+//			errorAlert("please enter a different caption to re-caption");
+//		}
+//		else { 
+//			photo.setCaption(caption);
+//			listUser.write(userlist);
+//		}
+//	}
 	
-	@FXML 
-	public void addTag(ActionEvent event) {
-		
-	}
-	
-	@FXML 
-	public void deleteTag(ActionEvent event) {
-		
-	}
-	
-	@FXML
-	public void search(ActionEvent event) throws IOException{
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Search.fxml"));
-		Parent parent = (Parent) loader.load();
-		searchController controller = loader.<searchController>getController();
-		Scene scene = new Scene(parent);
-		Stage appStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		controller.start();
-		appStage.setScene(scene);
-		appStage.show();	
-	}
+//	@FXML
+//	public void search(ActionEvent event) throws IOException{
+//		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Search.fxml"));
+//		Parent parent = (Parent) loader.load();
+//		searchController controller = loader.<searchController>getController();
+//		Scene scene = new Scene(parent);
+//		Stage appStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//		controller.start();
+//		appStage.setScene(scene);
+//		appStage.show();	
+//	}
 	
 	@FXML
 	public void back(ActionEvent event) throws IOException {

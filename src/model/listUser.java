@@ -17,7 +17,7 @@ public class listUser implements Serializable{
 	public User present;
 	//public boolean loggedIn;
 	
-	public final String admin = "admin";
+	//public final String admin = "admin";
 	
 	public  final static String storeDir = "data";
 	public  final static String storeFile = "dat.dat";
@@ -91,9 +91,9 @@ public class listUser implements Serializable{
 	}
 	
 	
-	public static void write(listUser pdApp) throws IOException {
+	public static void write(listUser userlist) throws IOException {
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(storeDir + File.separator + storeFile));
-		oos.writeObject(pdApp);
+		oos.writeObject(userlist);
 		oos.close();
 	}
 	

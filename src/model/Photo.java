@@ -24,6 +24,7 @@ public class Photo implements Serializable{
 	public Date currDate;
 	public boolean isStockPhoto = false;
 	
+	
 	public Photo(SerializableImage image, Calendar date) {
 		this.caption = "";
 		tags = new ArrayList<Tag>();

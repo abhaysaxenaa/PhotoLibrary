@@ -48,7 +48,7 @@ public class LoginController {
 		}
 	//Implement check for user.
 			else if(userlist.checkUserInList(username) == true) {
-				if(username != "admin" && !(username.equals(str)) /*&& userlist.checkUserInList(username) == true */){
+				if(username != "admin" && !(username.equals(str)) ){
 			loader = new FXMLLoader(getClass().getResource("/View/User.fxml"));
 			manager = (Parent) loader.load();
 			userController usercontroller = loader.getController();

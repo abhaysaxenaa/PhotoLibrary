@@ -43,6 +43,7 @@ public class userController {
 	public Album album;
 	public listUser userlist = Photos.driver;
 	public String username;
+	//public ArrayList<String> albumNames = new ArrayList<String>(); //USED FOR PRINTING OBSERVABLE LIST
 	
 	public ObservableList<Album> obsList =  FXCollections.observableArrayList(); 
 
@@ -50,6 +51,13 @@ public class userController {
 			
 		 
 		//update();
+		
+		/*allAlbums.clear();
+		for (int i = 0; i < allAlbums.size(); i++) {
+			albumNames.add(userlist.getCurrentUser().getAlbums().get(i).getName());
+		}
+		obsList = FXCollections.observableArrayList(albumNames);*/
+		
 		obsList = FXCollections.observableArrayList(allAlbums);
 		if(!allAlbums.isEmpty()) {
 			listView.getSelectionModel().select(0);
@@ -69,22 +77,27 @@ public class userController {
 		if(newAlbum.isEmpty()) {
 			errorAlert("Empty Album Name");
 		}
-		else if(user.checkAlbumInList(newAlbum)== false) {
+		/*else if(user.checkAlbumInList(newAlbum)== false) {
 			errorAlert(" Album Name already exists");
-		}
-		else {
+		}*/
+		
+		else if(user.checkAlbumInList(newAlbum) == false) {
 			//obsList.add(newAlbum);
+			//allAlbums.add(album);
+			allAlbums.add(album);
 			System.out.println("new:" + newAlbum);
 			
-			allAlbums.add(album);
+			
 			//user.createAlbum(album);
 			obsList.add(album);
 			listView.setItems(obsList);
+
 			listUser.write(userlist);
 			for(int i = 0; i< allAlbums.size(); i++) {
 				String name =allAlbums.get(i).getName();
 			System.out.println("allAlbums: "+ name);}
 			System.out.println("userlist: " + userlist);
+			listUser.write(userlist);
 		}
 	}
 	
@@ -104,10 +117,9 @@ public class userController {
 				errorAlert("Name already exists");
 			}
 			else {
-				Alert confirmation2 = ConfirmationAlert("Are you Sure");
-				if (confirmation2.showAndWait().get() == ButtonType.YES) {
+				 
 				selectedAlbum.rename(newName);
-			}
+			
 				try {
 					listUser.write(userlist);
 				}catch(Exception e) {
@@ -126,8 +138,9 @@ public class userController {
 		int index = listView.getSelectionModel().getSelectedIndex();
 		Alert confirmation = ConfirmationAlert("Are you Sure");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
-			obsList.remove(album);
+			
 			user.deleteAlbum(index);
+			
 			listView.getItems().remove(album);
 			try {
 				listUser.write(userlist);
@@ -182,7 +195,7 @@ public class userController {
 	}
 	
 	
-	public void update() {
+	/*public void update() {
 		user.setText(username + "'s Album List:");
 		// tfName.setText(listview.getSelectionModel().getSelectedItem());
 		user = userlist.getUser(username);
@@ -194,14 +207,14 @@ public class userController {
 		obsList = FXCollections.observableArrayList(allAlbums);
 		listView.setItems(obsList);
 		listView.refresh();
-	}
+	}*/
 	
 		public Alert ConfirmationAlert(String function) {
 			//MODIFIED: Added a more specific confirmation dialog.
 			Alert confirmation = new Alert(AlertType.CONFIRMATION);
 			confirmation.setTitle("Confirmation Dialog");
-			confirmation.setHeaderText("Logout Confirmation");
-			confirmation.setContentText("Are you sure you want to logout" );
+			confirmation.setHeaderText(" Confirmation");
+			confirmation.setContentText(function);
 
 			confirmation.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 
