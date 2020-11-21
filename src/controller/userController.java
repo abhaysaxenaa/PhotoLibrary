@@ -168,7 +168,6 @@ public class userController {
 			albumController.user = user;
 			albumController.allAlbums = allAlbums;
 			
-			
 			userlist.getCurrentUser().setAlbum(listView.getSelectionModel().getSelectedItem());
 			
 			System.out.println(user.getCurrentAlbum());

@@ -275,7 +275,20 @@ public class albumController {
 		Alert confirmation = ConfirmationAlert("Are you Sure");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			album.remove(photoIdx);
-			album.remove(photoIdx);
+			update();
+			int lastuserindex = album.getPhotos().size();
+				if (album.getPhotos().size() == 1) {
+					listView.getSelectionModel().select(0);
+				} else if (photoIdx == lastuserindex) {
+					listView.getSelectionModel().select(lastuserindex-1);
+				} else { 
+					listView.getSelectionModel().select(photoIdx);
+				}
+				if (allPhotos.size() == 0) {
+					photoView.setImage(null);
+				} else {
+					listView.getSelectionModel().select(0);
+				}
 		// implement 	reload();
 		listUser.write(userlist);
 		}
