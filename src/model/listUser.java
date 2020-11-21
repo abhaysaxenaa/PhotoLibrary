@@ -15,6 +15,7 @@ public class listUser implements Serializable{
 	
 	public  ArrayList<User> allUsers;
 	public User present;
+	public int currUserIdx = -1;
 	//public boolean loggedIn;
 	
 	//public final String admin = "admin";
@@ -64,10 +65,15 @@ public class listUser implements Serializable{
 	}
 	
 	public User getCurrentUser() {
-		return present;
+		return allUsers.get(currUserIdx);
 	}
 	
 	public void setCurrent(User present) {
+		for(int i = 0; i < allUsers.size(); i++) {
+			if(allUsers.get(i).equals(present)) {
+				this.currUserIdx = i;
+			}
+		}
 		this.present = present;
 	}
 	public String toString() {

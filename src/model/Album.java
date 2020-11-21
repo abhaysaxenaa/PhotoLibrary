@@ -17,7 +17,7 @@ public class Album implements Serializable{
 	
 	private String name;
 	private ArrayList<Photo> allPhotos;
-	public Photo currPhoto;
+	public int currPhotoIdx;
 //	private ArrayList<Album> allAlbums;
 	
 	public Album(String name) {
@@ -32,9 +32,11 @@ public class Album implements Serializable{
 	public String getName() {
 		return this.name;
 	}
-
+	public void setPhoto(Photo photo) {
+		this.currPhotoIdx = allPhotos.indexOf(photo);
+	}
 	public Photo getPhoto() {
-		return currPhoto;
+		return allPhotos.get(currPhotoIdx);
 	}
 	
 	public int getPhotoCount() {

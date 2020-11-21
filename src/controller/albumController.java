@@ -63,7 +63,7 @@ public class albumController {
 		update();
 		if (!allPhotos.isEmpty()) {
 			listView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
-				thumbnail();
+				thumbnail(newValue);
 	//		update();
 			});
 //			ArrayList<String> allAlbums = new ArrayList<String>();
@@ -100,11 +100,13 @@ public class albumController {
 		photoDate.setText("Date: " + userlist.getCurrentUser().getCurrentAlbum().getPhoto().getDate());
 	}
 	
-	public void thumbnail() {
-		Photo photo = listView.getSelectionModel().getSelectedItem();
+	public void thumbnail(Photo photo) {
+		System.out.println(photo);
+//		Photo photo = listView.getSelectionModel().getSelectedItem();
 		File file;
 		if(photo != null) {
 			file = photo.getImg();
+			
 			if(userlist.getCurrentUser().getUsername().equals("stock") && photo.isStockPhoto) {
 				String str = file.getAbsolutePath();
 				int stockPhoto = str.indexOf("stockphotos");
@@ -114,9 +116,10 @@ public class albumController {
 				photoView.setImage(image);
 		}
 			else {
-				Image image = new Image(file.toURI().toString());
-				photoView.setImage(image);
+//				Image image = new Image(file.toURI().toString());
+				photoView.setImage(photo.getImage());
 			}
+			userlist.getCurrentUser().getCurrentAlbum().setPhoto(photo);
 		}
 	}
 	
@@ -138,10 +141,11 @@ public class albumController {
         	Calendar date = Calendar.getInstance();
         	
         	Photo newPhoto = new Photo(img);
+        	newPhoto.setName(file.getName());
         	//album.addPhoto(newPhoto);
         	userlist.getCurrentUser().getCurrentAlbum().addPhoto(newPhoto);
         	listUser.write(userlist);
-        	photoView.setImage(img);
+//        	photoView.setImage(newPhoto.getImage());
         	update();
         }
 	}
@@ -171,9 +175,10 @@ public class albumController {
 			//album.write(album);
 			update();
 		} else {
+			errorAlert("Invalid Album");
 			return;
 		}
-		errorAlert("Invalid Album");
+		
 			
 	}
 	
@@ -262,6 +267,7 @@ public class albumController {
 		
 		allPhotos.clear();
 		for (int i = 0; i < album.getPhotos().size(); i++) {
+			System.out.println(i+" photo "+album.getPhotos().get(i).getName());
 			allPhotos.add(album.getPhotos().get(i));
 		}
 

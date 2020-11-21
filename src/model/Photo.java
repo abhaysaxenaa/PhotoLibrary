@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 
 public class Photo implements Serializable{
 	
+	private static final long serialVersionUID = -8485172240653089216L;
 	private SerializableImage image;
 	private String caption;
 	private ArrayList<Tag>tags;
@@ -23,7 +24,7 @@ public class Photo implements Serializable{
 	public String photoFilePath;
 	public Date currDate;
 	public boolean isStockPhoto = false;
-	
+	public String photoname;
 	
 	public Photo(SerializableImage image, Calendar date) {
 		this.caption = "";
@@ -36,6 +37,14 @@ public class Photo implements Serializable{
 	public Photo(Image image) {
 		this.image = new SerializableImage(image);
 		
+	}
+	
+	public void setName(String name) {
+		this.photoname = name;
+	}
+	
+	public String getName() {
+		return photoname;
 	}
 	public void setCaption( String caption) {
 		this.caption = caption;
@@ -79,5 +88,15 @@ public class Photo implements Serializable{
 	public void setImg(File photoLocation) {
 		this.photoLocation = photoLocation;
 	}
-
+	
+	@Override
+	public String toString() {
+		if(photoname == null) {
+			return "There are no photos";
+			}
+		
+		
+		return photoname;
+	}
+	
 }

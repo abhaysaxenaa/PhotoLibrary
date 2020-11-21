@@ -53,13 +53,15 @@ public class photoDisplay {
 	public int nextIndex = 0;
 	
 	public void start(Stage app_stage) {
-		app_stage.setTitle(userlist.getCurrentUser().getCurrentAlbum().getPhoto().getCaption() + " ");
+		System.out.println(userlist.getCurrentUser().getCurrentAlbum());
+		System.out.println(userlist.getCurrentUser().getCurrentAlbum().getPhoto());
+		app_stage.setTitle(userlist.getCurrentUser().getCurrentAlbum().getPhoto().getName() + " ");
 		
 		//update();
-		Photo photo = allPhotos.get(0);
-		File file = photo.getImg();
-		Image image = new Image(file.toURI().toString());
-		photoDisplay.setImage(image);
+		Photo photo = userlist.getCurrentUser().getCurrentAlbum().getPhoto();
+//		File file = photo.getImg();
+//		Image image = new Image(file.toURI().toString());
+		photoDisplay.setImage(photo.getImage());
 
 		if(!allTags.isEmpty()) {
 			listView.getSelectionModel().select(0); //select first user
