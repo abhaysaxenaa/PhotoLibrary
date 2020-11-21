@@ -163,21 +163,25 @@ public class userController {
 	
 	@FXML
 	public void openAlbum(ActionEvent event) throws IOException{
-		albumController.album = listView.getSelectionModel().getSelectedItem();
-		albumController.user = user;
-		albumController.allAlbums = allAlbums;
-		
-		userlist.getCurrentUser().setAlbum(listView.getSelectionModel().getSelectedItem());
-		
-		System.out.println(user.getCurrentAlbum());
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AlbumDetails.fxml"));
-		Parent parent = (Parent) loader.load();
-		albumController controller = loader.getController();
-		Scene scene = new Scene(parent);
-		Stage appStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		controller.start();
-		appStage.setScene(scene);
-		appStage.show();
+		if (allAlbums.size() > 0) {
+			albumController.album = listView.getSelectionModel().getSelectedItem();
+			albumController.user = user;
+			albumController.allAlbums = allAlbums;
+			
+			userlist.getCurrentUser().setAlbum(listView.getSelectionModel().getSelectedItem());
+			
+			System.out.println(user.getCurrentAlbum());
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AlbumDetails.fxml"));
+			Parent parent = (Parent) loader.load();
+			albumController controller = loader.getController();
+			Scene scene = new Scene(parent);
+			Stage appStage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			controller.start();
+			appStage.setScene(scene);
+			appStage.show();
+		} else {
+			errorAlert("Can't open null.");
+		}
 	}
 	
 	@FXML
@@ -234,16 +238,13 @@ public class userController {
 			return confirmation;
 		}
 	
-		public Alert errorAlert(String function) {
-			//MODIFIED: Added a more specific confirmation dialog.
-			Alert confirmation = new Alert(AlertType.ERROR);
-			confirmation.setTitle("Confirmation Dialog");
-			confirmation.setHeaderText("Operation: "+ function + "ing a song.");
-			confirmation.setContentText("Are you sure you want to " + function.toLowerCase() + " this song?");
-
-			confirmation.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
-
-			return confirmation;
+		public void errorAlert(String error) {
+			   Alert alert =  new Alert(AlertType.ERROR);
+			   alert.setTitle("Error");
+			   alert.setHeaderText("Error");
+			   String content = error;
+			   alert.setContentText(content);
+			   alert.showAndWait();
 		}
 
 }

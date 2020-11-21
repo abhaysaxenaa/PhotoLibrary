@@ -85,7 +85,7 @@ public class albumController {
 	public void photoDisplay (ActionEvent event) throws IOException{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/photoDisplay.fxml"));
 		Parent parent = (Parent) loader.load();
-		photoDisplay controller = loader.<photoDisplay>getController();
+		photoDisplay controller = loader.getController();
 		Scene scene = new Scene(parent);
 		Stage appStage = (Stage)((Node) event.getSource()).getScene().getWindow();
 		controller.start(appStage);
@@ -257,7 +257,6 @@ public class albumController {
 		Alert confirmation = ConfirmationAlert("Are you Sure");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			album.remove(photoIdx);
-			obsList.remove(photo);
 			album.remove(photoIdx);
 		// implement 	reload();
 		listUser.write(userlist);
