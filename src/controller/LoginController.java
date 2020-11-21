@@ -14,6 +14,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.User;
 import model.listUser;
 //import model.listUser;
 //import model.User;
@@ -33,6 +34,8 @@ public class LoginController {
 		FXMLLoader loader;
 		Parent manager;
 		String str ="";
+	
+		System.out.println(userlist + " hey");
 		
 		try{
 			if(username.equals("admin")) {
@@ -51,7 +54,10 @@ public class LoginController {
 				if(username != "admin" && !(username.equals(str)) ){
 			loader = new FXMLLoader(getClass().getResource("/View/User.fxml"));
 			manager = (Parent) loader.load();
+			User curr = new User(username);
+			userlist.setCurrent(curr);
 			userController usercontroller = loader.getController();
+			usercontroller.user = curr;
 			Scene userScene = new Scene(manager);
 			Stage appStage = (Stage)((Node) event.getSource()).getScene().getWindow();
 			usercontroller.bootUp();

@@ -98,7 +98,7 @@ public class User implements Serializable {
 	public boolean checkAlbumInList(String album) {
 		
 		for (int i = 0; i < allAlbums.size(); i++) {
-			if (user.equals(allAlbums.get(i).getName())) {
+			if (album.equals(allAlbums.get(i).getName())) {
 				return true;
 				
 				//Set new current user

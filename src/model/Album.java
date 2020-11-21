@@ -55,21 +55,19 @@ public class Album implements Serializable{
 		allPhotos.remove(index);
 		
 	}
+	public String toString() {
+		if(name == null) {
+			return "There are no albums";
+			}
+		
+		
+		return name;
+	}
 	public ArrayList<Photo> getPhotos(){
 		return allPhotos;
 	}
 	
-	public static void save(Album album) throws IOException {
-		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(storeDir + File.separator + storeFile));
-		oos.writeObject(album);
-		oos.close();
-	}
 	
-	public static listUser load() throws IOException, ClassNotFoundException {
-		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + storeFile));
-		listUser userList = (listUser) ois.readObject();
-		ois.close();
-		return userList;
-	}
+
 	
 }

@@ -38,7 +38,7 @@ public class userController {
 	
 	
 	public ArrayList<Album> allAlbums = new ArrayList<Album>();
-	public User user;
+	public User user ;
 	public ArrayList<String> allUsers = new ArrayList<String>();
 	public Album album;
 	public listUser userlist = Photos.driver;
@@ -77,27 +77,27 @@ public class userController {
 		if(newAlbum.isEmpty()) {
 			errorAlert("Empty Album Name");
 		}
-		/*else if(user.checkAlbumInList(newAlbum)== false) {
-			errorAlert(" Album Name already exists");
-		}*/
 		
-		else if(user.checkAlbumInList(newAlbum) == false) {
-			//obsList.add(newAlbum);
-			//allAlbums.add(album);
-			allAlbums.add(album);
-			System.out.println("new:" + newAlbum);
-			
+		else if(user.checkAlbumInList(newAlbum) == true) {
+			errorAlert("Album name already exists");
+		}
+		
+		else {
+			userlist.getCurrentUser().createAlbum(album);
+			System.out.println(userlist);
 			
 			//user.createAlbum(album);
 			obsList.add(album);
 			listView.setItems(obsList);
-
+			System.out.println(userlist);
 			listUser.write(userlist);
+			
 			for(int i = 0; i< allAlbums.size(); i++) {
 				String name =allAlbums.get(i).getName();
 			System.out.println("allAlbums: "+ name);}
 			System.out.println("userlist: " + userlist);
-			listUser.write(userlist);
+		//	listUser.write(userlist);
+			System.out.println(user.getUsername());
 		}
 	}
 	

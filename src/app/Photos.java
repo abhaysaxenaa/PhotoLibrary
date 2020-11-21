@@ -15,7 +15,8 @@ import model.listUser;
 
 public class Photos extends Application {
 	
-	public static  listUser driver = new listUser();
+	public static  listUser driver;
+	public listUser userlist;
 	//public static listUser driver = new listUser();
 	public Stage primaryStage;
 
@@ -29,6 +30,9 @@ public class Photos extends Application {
 			 
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/View/Login.fxml"));
 			
+			userlist = userlist.read();
+			driver = userlist;
+			System.out.print(userlist.getList());
 	        primaryStage.setResizable(false);
 	        primaryStage.setTitle("Photo Album");
 	        primaryStage.setScene(new Scene(root));
