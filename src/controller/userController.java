@@ -163,10 +163,12 @@ public class userController {
 	
 	@FXML
 	public void openAlbum(ActionEvent event) throws IOException{
-		//Album selectedAlbum = listView.getSelectionModel().getSelectedItem();
 		albumController.album = listView.getSelectionModel().getSelectedItem();
-//		albumController.user = user;
-//		albumController.allAlbums = allAlbums;
+		albumController.user = user;
+		albumController.allAlbums = allAlbums;
+		
+		userlist.getCurrentUser().setAlbum(listView.getSelectionModel().getSelectedItem());
+		
 		System.out.println(user.getCurrentAlbum());
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AlbumDetails.fxml"));
 		Parent parent = (Parent) loader.load();

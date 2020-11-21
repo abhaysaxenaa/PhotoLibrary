@@ -47,11 +47,10 @@ public class albumController {
 	
 	
 	
-	public ArrayList<Album> allAlbums;
-	public ObservableList<Photo> obsList;
+	public static ArrayList<Album> allAlbums;
 	public ArrayList<Photo> allPhotos = new ArrayList<Photo>();
 	
-	public User user;
+	public static User user;
 	public listUser userlist = Photos.driver;
 	public static Album album;
 	private Photo photo;
@@ -138,7 +137,6 @@ public class albumController {
         	Photo newPhoto = new Photo(img);
         	//album.addPhoto(newPhoto);
         	userlist.getCurrentUser().getCurrentAlbum().addPhoto(newPhoto);
-        	obsList.add(newPhoto);
         	listUser.write(userlist);
         	
         }

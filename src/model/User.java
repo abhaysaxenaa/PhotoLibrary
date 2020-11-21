@@ -41,6 +41,10 @@ public class User implements Serializable {
 		this.username = username;
 	}
 	
+	public void setAlbum(Album al) {
+		this.currAlbum = al;
+	}
+	
 	public ArrayList<Album> getAlbums(){
 		return allAlbums;
 	}
