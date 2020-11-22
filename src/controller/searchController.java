@@ -1,3 +1,6 @@
+
+//Abhay Saxena (ans192) & GVS Karthik (vg311)
+
 package controller;
 
 import java.io.IOException;
@@ -34,19 +37,26 @@ import model.Tag;
 import model.User;
 import model.listUser;
 
+
+/*
+ * @author Venkata Sai Karthik Gandrath
+ * @author Abhay Saxena 
+ * 
+ * 
+ */
+
 public class searchController {
 	
 	@FXML
-	public Button searchButton, addTagButton, removeTagButton, createNewAlbumButton, backButton;
+	public Button searchButton, createNewAlbumButton, backButton;
 	
 	@FXML
 	TextField  tagName, tagValue;
 	
 	@FXML
-	ListView<String> tags;
-	
-	@FXML
 	ListView<Photo> searchResults;
+	
+	
 	
 	@FXML
 	DatePicker fromDate, toDate;
@@ -59,60 +69,48 @@ public class searchController {
 	public ArrayList<Tag> allTags = new ArrayList<Tag>();
 	public ArrayList<String> tagPairs = new ArrayList<String>();
 	public ObservableList<String> obsShowTags;
+	public ObservableList<Photo> obsList;
 	
 
 	public void start() {
-		// TODO Auto-generated method stub
+
 		
 	}
 	
-	
+	/*
+	 * @param event
+	 */
 	@FXML
 	public void search(ActionEvent event) {
-		allPhotos= photosInAlbum();
-		LocalDate from, to;
-		
-		
-	}
-	@FXML
-	public void addTag(ActionEvent event) throws IOException {
-		if (tagName.getText().isEmpty() || tagValue.getText().isEmpty()) {
-			alert("One of the Tag property is missing.");
-			return;
-		} else {
-			//Basically the update method.
-			Tag newTag = new Tag(tagName.getText().trim(), tagValue.getText().trim());
-			tagName.clear();
-			tagValue.clear();
-			allTags.add(newTag);
-			
-			tagPairs.clear();
-			for(Tag tempTag : allTags) {
-				tagPairs.add("Tag Name - " + tempTag.name +    ", Tag Value - " + tempTag.value);
+//		get tag from UI
+		String name = tagName.getText().trim();
+		String value = tagValue.getText().trim();
+		Tag temp = new Tag(name,value);
+		ArrayList<Photo> selectedPhotos = new ArrayList<>();
+		ArrayList<Album> albums = userlist.getCurrentUser().getAlbums();
+		for(Album a: albums) {
+			for(Photo p: a.getPhotos()) {
+				for(Tag t: p.getTags()) {
+					if(t.getName().equals(name) && t.getValue().equals(value)) {
+						selectedPhotos.add(p);
+						break;
+					}
+				}
 			}
-			obsShowTags = FXCollections.observableArrayList(tagPairs);
-			tags.setItems(obsShowTags);
 		}
-	}
-	
+		
+		allPhotos = selectedPhotos;
+		obsList = FXCollections.observableArrayList(selectedPhotos);
+		searchResults.setItems(obsList);
+		searchResults.refresh();
+		
+	}	
+		/*
+		 * @param event 
+		 * @throws IOException
+		 */
 	@FXML
-	public void removeTag(ActionEvent event) {
-		int idx = tags.getSelectionModel().getSelectedIndex();
-		if (idx < 0) {
-			alert("Cannot remove a non-existent tag!");
-		} else {
-			errorAlert("Remove Tag");
-			allTags.remove(idx);
-			tagPairs.clear();
-			for(Tag tempTag : allTags) {
-				tagPairs.add("Tag Name - " + tempTag.name +    ", Tag Value - " + tempTag.value);
-			}
-			obsShowTags = FXCollections.observableArrayList(tagPairs);
-			tags.setItems(obsShowTags);
-		}
-	}
-	
-public void back(ActionEvent event) throws IOException {
+	public void back(ActionEvent event) throws IOException {
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/User.fxml"));
 		Parent parent = (Parent) loader.load();
@@ -124,10 +122,13 @@ public void back(ActionEvent event) throws IOException {
 		appStage.show();
 	}
 	
-	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML
-	public void createNewAlbum(ActionEvent event) {
-		/*if(searchResults.getItems().isEmpty()) {
+	public void createNewAlbum(ActionEvent event) throws IOException {
+		if(searchResults.getItems().isEmpty()) {
 			errorAlert("create a new album");
 		}
 		else {
@@ -147,13 +148,11 @@ public void back(ActionEvent event) throws IOException {
 			   
 			   ButtonType buttonTypeOk = new ButtonType("Add", ButtonData.OK_DONE);
 			   dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
-			   
-			   dialog.setResultConverter(new Callback<ButtonType, String>() { 
-				   @Override
-				   public String call(ButtonType b) {
-					   if (b == buttonTypeOk) {
-						   if (albumName.getText().trim().isEmpty()) {
-							  errorAlert("Invalid Album Name");
+			   dialog.setResultConverter(buttonType -> {
+				   user = userlist.getCurrentUser();
+				   if (buttonType == buttonTypeOk) {
+					   if (albumName.getText().trim().isEmpty()) {
+							 Alert alert =  errorAlert("Invalid Album Name");
 
 							   Optional<ButtonType> buttonClicked=alert.showAndWait();
 							   if (buttonClicked.get()==ButtonType.OK) {
@@ -164,47 +163,34 @@ public void back(ActionEvent event) throws IOException {
 							   }
 							   return null;
 						   }
-						   else if(user.checkAlbumInList(albumName == true)){ 
+						   else if(user.checkAlbumInList(albumName.getText().trim()) == true){ 
 							   errorAlert(" Album Name already exists");
 						   }
 						   return albumName.getText().trim();
-					   }
-					   return null;
 				   }
-				
+				   return null;
 			   });
+			
 			   
 			   Optional<String> result = dialog.showAndWait();
 			   
 			   if (result.isPresent()) {
 				   Album albumFromSearch = new Album(result.get());
-				   user.getAlbums().add(albumFromSearch);
+				   
 				  
 				   for(Photo photo : allPhotos) {
 					   albumFromSearch.addPhoto(photo);
 				   }
-				   listUser.write(userlist);
+				   user.getAlbums().add(albumFromSearch);
+				   userlist.write(userlist);
 			   }
-		}*/
-	}
-	
-	public ArrayList<Photo> photosInAlbum(){
-		ArrayList<Album> allAlbums = user.getAlbums();
-		int i = 0;
-		while(i < allAlbums.size()) {
-			
-			for(Photo photo : allAlbums.get(i).getPhotos()) {
-				if(!allPhotos.contains(photo)) {
-					allPhotos.add(photo);
-					
-				}
-			}
-			i++;
-			
 		}
-		return allPhotos;
 	}
 	
+	
+	/*
+	 * @param function
+	 */
 	public Alert errorAlert(String function) {
 		//MODIFIED: Added a more specific confirmation dialog.
 		Alert confirmation = new Alert(AlertType.ERROR);
@@ -217,6 +203,9 @@ public void back(ActionEvent event) throws IOException {
 		return confirmation;
 	}
 	
+	/*
+	 * @param funtion
+	 */
 	public Alert alert(String function) {
 		//MODIFIED: Added a more specific confirmation dialog.
 		Alert confirmation = new Alert(AlertType.ERROR);

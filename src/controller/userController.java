@@ -1,3 +1,6 @@
+
+//Abhay Saxena (ans192) & GVS Karthik (vg311)
+
 package controller;
 
 import java.io.IOException;
@@ -25,6 +28,13 @@ import model.Photo;
 import model.User;
 import model.listUser;
 
+/*
+ * @author Venkata Sai Karthik Gandrath
+ * @author Abhay Saxena 
+ * 
+ * 
+ */
+
 public class userController {
 	
 	@FXML 
@@ -43,7 +53,6 @@ public class userController {
 	public Album album;
 	public listUser userlist = Photos.driver;
 	public String username;
-	//public ArrayList<String> albumNames = new ArrayList<String>(); //USED FOR PRINTING OBSERVABLE LIST
 	
 	public ObservableList<Album> obsList =  FXCollections.observableArrayList(); 
 
@@ -52,23 +61,23 @@ public class userController {
 		 
 		initialize();
 		
-		/*allAlbums.clear();
-		for (int i = 0; i < allAlbums.size(); i++) {
-			albumNames.add(userlist.getCurrentUser().getAlbums().get(i).getName());
-		}
-		obsList = FXCollections.observableArrayList(albumNames);*/
+		
 		
 		obsList = FXCollections.observableArrayList(allAlbums);
 		if(!allAlbums.isEmpty()) {
 			listView.getSelectionModel().select(0);
 			
 		}
-//			
+		
 			
 	}
 	
 	
-	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	@FXML
 	public void addAlbum(ActionEvent event) throws IOException, ClassNotFoundException{
 		String newAlbum = albumName.getText().trim();
@@ -84,28 +93,24 @@ public class userController {
 		
 		else {
 			userlist.getCurrentUser().createAlbum(album);
-			System.out.println(userlist);
+			
 			initialize();
-			//user.createAlbum(album);
-			//obsList.add(album);
-			//listView.setItems(obsList);
-			//System.out.println(userlist);
-			//listUser.write(userlist);
-			//User.write(userlist.getCurrentUser());
+			
 			albumName.clear();
 			for(int i = 0; i< allAlbums.size(); i++) {
 				String name =allAlbums.get(i).getName();
-			System.out.println("allAlbums: "+ name);}
-			System.out.println("userlist: " + userlist);
-		//	listUser.write(userlist);
-			System.out.println(user.getUsername());
+			
 		}
 		listUser.write(userlist);
+		}
 	}
 	
 	
 	
-	//CHANGE: Error doesn't pop up.
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML
 	public void renameAlbum(ActionEvent event) throws IOException{
 		String newName = albumName.getText().trim();
@@ -114,7 +119,9 @@ public class userController {
 		
 		Alert confirmation = ConfirmationAlert("Are you sure you want to rename this album?");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
-			if(newName == null) {
+			
+			
+			if(newName == null || newName.isEmpty() || newName.isBlank()) {
 				errorAlert("Empty Album Name");
 			}
 			else if(newName.equals(selectedAlbum.getName()) || userlist.getCurrentUser().checkAlbumInList(newName)) {
@@ -139,7 +146,10 @@ public class userController {
 	
 	
 	
-	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML 
 	public void deleteAlbum(ActionEvent event) throws IOException{
 		int index = listView.getSelectionModel().getSelectedIndex();
@@ -158,7 +168,10 @@ public class userController {
 		}
 	}
 	
-	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML
 	public void openAlbum(ActionEvent event) throws IOException{
 		if (allAlbums.size() > 0) {
@@ -168,7 +181,7 @@ public class userController {
 			
 			userlist.getCurrentUser().setAlbum(listView.getSelectionModel().getSelectedItem());
 			
-			System.out.println(user.getCurrentAlbum());
+		
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/AlbumDetails.fxml"));
 			Parent parent = (Parent) loader.load();
 			albumController controller = loader.getController();
@@ -182,6 +195,10 @@ public class userController {
 		}
 	}
 	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML
 	public void searchPhotos(ActionEvent event) throws IOException{
 		
@@ -196,7 +213,10 @@ public class userController {
 		appStage.show();
 	}
 	
-	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML
 	public void logout(ActionEvent event) throws IOException{
 		listUser.write(userlist);
@@ -214,8 +234,6 @@ public class userController {
 	
 	public void initialize() {
 		user = userlist.getCurrentUser();
-		System.out.println(user.getUsername());
-		System.out.println(user.getAlbums()+"albums");
 		
 		allAlbums.clear();
 		for (int i = 0; i < user.getAlbums().size(); i++) {
@@ -226,8 +244,11 @@ public class userController {
 		listView.refresh();
 	}
 	
-		public Alert ConfirmationAlert(String function) {
-			//MODIFIED: Added a more specific confirmation dialog.
+	/*
+	 * @param function
+	 */
+	public Alert ConfirmationAlert(String function) {
+			
 			Alert confirmation = new Alert(AlertType.CONFIRMATION);
 			confirmation.setTitle("Confirmation Dialog");
 			confirmation.setHeaderText(" Confirmation");
@@ -238,7 +259,10 @@ public class userController {
 			return confirmation;
 		}
 	
-		public void errorAlert(String error) {
+	/*
+	 * @param error
+	 */
+	public void errorAlert(String error) {
 			   Alert alert =  new Alert(AlertType.ERROR);
 			   alert.setTitle("Error");
 			   alert.setHeaderText("Error");

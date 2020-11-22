@@ -1,6 +1,10 @@
+
+//Abhay Saxena (ans192) & GVS Karthik (vg311)
+
 package controller;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,6 +31,14 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.*;
+
+/*
+ * @author Venkata Sai Karthik Gandrath
+ * @author Abhay Saxena 
+ * 
+ * 
+ */
+
 
 public class albumController {
 	
@@ -60,14 +72,17 @@ public class albumController {
 	public int nextIndex = 0;
 	
 	public void start() {
-		initialize(); //Boots up program from previous states.
+		initialize(); 
 		if (!allPhotos.isEmpty()) {
 			listView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
 				thumbnail(newValue);
 			});
 		}
 	}
-	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML
 	public void photoDisplay (ActionEvent event) throws IOException{
 		if (allPhotos.size() > 0) {
@@ -85,15 +100,21 @@ public class albumController {
 	public void displayDate() {
 		photoDate.setText("Date - " + userlist.getCurrentUser().getCurrentAlbum().getPhoto().getDate());
 	}
-	
+	/*
+	 * @param photo
+	 */
 	public void thumbnail(Photo photo) {
-		System.out.println(photo);
+		
 		if(photo != null) {
 			photoView.setImage(photo.getImage());
 			userlist.getCurrentUser().getCurrentAlbum().setPhoto(photo);
 		}
 	}
 	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML
 	public void addPhoto(ActionEvent event) throws IOException {
 		FileChooser chooser = new FileChooser();
@@ -110,7 +131,7 @@ public class albumController {
         	
         	Photo newPhoto = new Photo(img);
         	newPhoto.setName(file.getName());
-        	//album.addPhoto(newPhoto);
+        	
         	userlist.getCurrentUser().getCurrentAlbum().addPhoto(newPhoto);
         	listUser.write(userlist);
         	photoView.setImage(newPhoto.getImage());
@@ -118,7 +139,10 @@ public class albumController {
         }
 	}
 
-	//Change
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML 
 	public void movePhoto(ActionEvent event) throws IOException{
 		String movePath = movePhoto.getText().trim();
@@ -146,7 +170,10 @@ public class albumController {
 			
 	}
 	
-	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML
 	public void copyPhoto(ActionEvent event) throws IOException{
 		String copyLocation = copyPhoto.getText().trim();
@@ -173,7 +200,7 @@ public class albumController {
 	public void initialize() {
 		allPhotos.clear();
 		for (int i = 0; i < album.getPhotos().size(); i++) {
-			System.out.println(i+" photo "+album.getPhotos().get(i).getName());
+			
 			allPhotos.add(album.getPhotos().get(i));
 		}
 		listView.refresh();
@@ -182,7 +209,11 @@ public class albumController {
 		listView.refresh();
 	}
 	
-	//Not sure about album.remove(), should take in an index, was taking Photo photo = listView.getSelectionModel().getSelectedItem();
+	/*
+	 * @param event 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	@FXML
 	public void removePhoto(ActionEvent event) throws ClassNotFoundException, IOException {
 		int photoIdx = listView.getSelectionModel().getSelectedIndex();
@@ -190,7 +221,7 @@ public class albumController {
 			errorAlert("No photo to delete.");
 			return;
 		}
-		Alert confirmation = ConfirmationAlert("Delete the song");
+		Alert confirmation = ConfirmationAlert("Are you sure?");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			album.remove(photoIdx);
 			initialize();
@@ -204,22 +235,12 @@ public class albumController {
 		}
 	}
 	
-//	@FXML
-//	public void captionPhoto(ActionEvent event) throws ClassNotFoundException, IOException {
-//		String caption = captionPhoto.getText().trim();
-//		if(caption == null) {
-//			errorAlert("please enter a valid caption");
-//		}
-//		else if (caption == photo.getCaption()) {
-//			errorAlert("please enter a different caption to re-caption");
-//		}
-//		else { 
-//			photo.setCaption(caption);
-//			listUser.write(userlist);
-//		}
-//	}
 
-	
+
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML
 	public void back(ActionEvent event) throws IOException {
 		
@@ -233,6 +254,10 @@ public class albumController {
 		appStage.show();
 	}
 
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML
 	public void logout(ActionEvent event) throws IOException {
 		Alert confirmation = ConfirmationAlert("Logout");
@@ -246,6 +271,9 @@ public class albumController {
 		}
 	}
 	
+	/*
+	 * @param function
+	 */
 	public Alert ConfirmationAlert(String function) {
 		//MODIFIED: Added a more specific confirmation dialog.
 		Alert confirmation = new Alert(AlertType.CONFIRMATION);
@@ -258,6 +286,9 @@ public class albumController {
 		return confirmation;
 	}
 	
+	/*
+	 * @param error
+	 */
 	public void successAlert(String error) {
 		   Alert alert =  new Alert(AlertType.INFORMATION);
 		   alert.setTitle("Success");
@@ -267,6 +298,9 @@ public class albumController {
 		   alert.showAndWait();
 	}
 	
+	/*
+	 * @param error
+	 */
 	public void errorAlert(String error) {
 		   Alert alert =  new Alert(AlertType.ERROR);
 		   alert.setTitle("Error");

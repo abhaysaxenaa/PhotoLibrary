@@ -32,7 +32,7 @@ public class Photos extends Application {
 			
 			userlist = userlist.read();
 			driver = userlist;
-			System.out.print(userlist.getList());
+			
 	        primaryStage.setResizable(false);
 	        primaryStage.setTitle("Photo Album");
 	        primaryStage.setScene(new Scene(root));

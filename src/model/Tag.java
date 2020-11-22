@@ -1,40 +1,73 @@
+
+
+//Abhay Saxena (ans192) & GVS Karthik (vg311)
+
 package model;
 
 import java.io.Serializable;
+/*
+ * @author Venkata Sai Karthik Gandrath
+ * @author Abhay Saxena 
+ * 
+ * 
+ */
+
 
 public class Tag implements Serializable{
 	
-	//private String name, value;
 	
-	//Changed to public:
 	public String name, value;
 	
+	/*
+	 * constructor
+	 * @param name
+	 * @param value
+	 */
 	public Tag(String name, String value) {
 		this.name = name;
 		this.value = value;
 	}
 	
 	
-	//Setter methods
+	/*
+	 * sets tag name
+	 */
 	public void setName() {
 		this.name = name;
 	}
+	
+	/*
+	 * sets tag value
+	 */
+	
 	public void setValue() {
 		this.value = value;
 	}
 	
-	//Getter methods
+	/*
+	 * @return name 
+	 */
 	public  String getName() {
 		return name;
 	}
+	
+	/*
+	 * @return value 
+	 */
 	public String getValue() {
 		return value;
 	}
 	
+	/*
+	 * @return string of tag
+	 */
 	public String toString() {
 		return "Name:" +name + " - value: " + value;
 	}
 	
+	/*
+	 * boolean if equals to another tag
+	 */
 	public boolean equals(Tag another) {
 		if (another == null){
 			return false;

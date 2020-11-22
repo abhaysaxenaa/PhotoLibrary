@@ -1,3 +1,6 @@
+
+//Abhay Saxena (ans192) & GVS Karthik (vg311)
+
 package controller;
 
 import java.io.File;
@@ -28,6 +31,13 @@ import javafx.stage.Stage;
 import model.User;
 import model.listUser;
 
+/*
+ * @author Venkata Sai Karthik Gandrath
+ * @author Abhay Saxena 
+ * 
+ * 
+ */
+
 public class adminController {
 	@FXML private Button  createButton, deleteButton, listUserbutton, logoutButton;
 	@FXML private TextField userName;
@@ -40,6 +50,10 @@ public class adminController {
 	
 	public ObservableList<String> obsList; 
 	
+	/*
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void bootup() throws ClassNotFoundException, IOException {
 			listView.setVisible(false);	
 			update();
@@ -50,7 +64,10 @@ public class adminController {
 	}
 
 
-	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	
 	@FXML
 	public void logout(ActionEvent event) throws IOException{
@@ -68,7 +85,11 @@ public class adminController {
 	}
 	
 	
-	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	@FXML
 	public void deleteUser(ActionEvent event) throws IOException, ClassNotFoundException{
 		int index = listView.getSelectionModel().getSelectedIndex();
@@ -84,7 +105,11 @@ public class adminController {
 	
 	
 	
-	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	@FXML
 	public void addUser(ActionEvent event) throws IOException, ClassNotFoundException{
 		
@@ -110,7 +135,11 @@ public class adminController {
 	}
 	
 	
-	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 * 
+	 */
 	@FXML
 	public void listUser(ActionEvent event) throws IOException{
 		listView.setVisible(true);
@@ -118,7 +147,9 @@ public class adminController {
 	}
 	
 	
-	
+	/*
+	 * @param function
+	 */
 	public Alert ConfirmationAlert(String function) {
 			//MODIFIED: Added a more specific confirmation dialog.
 			Alert confirmation = new Alert(AlertType.CONFIRMATION);
@@ -130,6 +161,11 @@ public class adminController {
 
 			return confirmation;
 	}
+	
+	/*
+	 * 
+	 * @param error
+	 */
 	
 	public void errorAlert(String error) {
 		   Alert alert =  new Alert(AlertType.ERROR);

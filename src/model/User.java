@@ -1,3 +1,6 @@
+
+//Abhay Saxena (ans192) & GVS Karthik (vg311)
+
 package model;
 
 import java.io.File;
@@ -13,6 +16,13 @@ import app.Photos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
+/*
+ * @author Venkata Sai Karthik Gandrath
+ * @author Abhay Saxena 
+ * 
+ * 
+ */
+
 
 public class User implements Serializable {
 
@@ -25,66 +35,108 @@ public class User implements Serializable {
 	
 	public static final String storeDir = "data";
 	public static final String storeFile = "dat.dat";
-	
+	/*
+	 * constructor 
+	 * @param username 
+	 */
 	public User(String username) {
 		this.username = username;
 		allAlbums = new ArrayList<Album>();
 	}
 	
 	
-	//Setter methods
+	/*
+	 * @param username 
+	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 	
+	
+	/*
+	 * @param al
+	 */
 	public void setAlbum(Album al) {
 		this.currAlbum = al;
 	}
+	
+	/*
+	 * @param username 
+	 */
 	
 	public void renameAlbum(String  username) {
 		this.username = username;
 	}
 	
+	/*
+	 * @param allAlbums
+	 */
+	
 	public void setAlbums(ArrayList<Album> allAlbums) {
 		this.allAlbums = allAlbums;
 	}
 	
-	//Getter methods
+	/*
+	 * @return allAlbums
+	 */
 	public ArrayList<Album> getAlbums(){
 		return allAlbums;
 	}
 	
+	/*
+	 * @return current album
+	 */
 	public Album getCurrentAlbum() {
 		return currAlbum;
 	}
+	
+	/*
+	 * @return user
+	 */
 	public User getUserName() {
 		return user;
 		
 	}
+	
+	/*
+	 * @return username 
+	 */
 	public String getUsername() {
 		return username;
 	}
+	
+	/*
+	 * @return username
+	 */
 	public String toString() {
 		return this.username.toLowerCase();
 	}
 	
+	/*
+	 * @boolean if user equals to another user
+	 */
 	public boolean checkUserInList(User other) {
 		return this.username.equals(other.username);
 	}
 	
-
+	/*
+	 * @param newAlbum
+	 */
 	public void createAlbum(Album newAlbum) {
 		
 		if (allAlbums.contains(newAlbum)) {
 			errorAlert(" Album Name already exists");
 		}
 		else {
-			System.out.println("new:" + newAlbum);
+			
 			allAlbums.add(newAlbum);
 
 		}
 	}
 	
+	/*
+	 * @param index
+	 */
 	public void deleteAlbum(int index) {
 		if (allAlbums.size() > 0) {
 			allAlbums.remove(index);
@@ -93,6 +145,9 @@ public class User implements Serializable {
 				
 	}
 
+	/*
+	 * @param album
+	 */
 	public boolean checkAlbumInList(String album) {
 		
 		for (int i = 0; i < allAlbums.size(); i++) {
@@ -103,20 +158,33 @@ public class User implements Serializable {
 		return false;
 	}
 	
-	public static void write(User u) throws IOException {
+	/*
+	 * @return a list of user
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
+	
+	public static User read() throws IOException, ClassNotFoundException {
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(storeDir + File.separator + storeFile));
+		User user = (User) ois.readObject();
+			ois.close();
+		return user;
 		
-		ObjectOutputStream o = new ObjectOutputStream(new FileOutputStream(storeDir+File.separator + storeFile));
-		o.writeObject(u);
-		o.close();
 	}
 	
-	public static User read() throws IOException, ClassNotFoundException{
-		ObjectInputStream o = new ObjectInputStream(new FileInputStream(storeDir+File.separator + storeFile));
-		User userList = (User)o.readObject();
-		o.close();
-		return userList;
+	/*
+	 * @param userlist
+	 * @throws IOException
+	 */
+	public static void write(User user) throws IOException {
+		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(storeDir + File.separator + storeFile));
+		oos.writeObject(user);
+		oos.close();
 	}
-	
+
+	/*
+	 * @param function
+	 */
 	public Alert errorAlert(String function) {
 		//MODIFIED: Added a more specific confirmation dialog.
 		Alert confirmation = new Alert(AlertType.ERROR);

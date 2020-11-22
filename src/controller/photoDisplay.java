@@ -1,3 +1,6 @@
+
+//Abhay Saxena (ans192) & GVS Karthik (vg311)
+
 package controller;
 
 import java.io.File;
@@ -24,6 +27,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
+
+
+/*
+ * @author Venkata Sai Karthik Gandrath
+ * @author Abhay Saxena 
+ * 
+ * 
+ */
 
 public class photoDisplay {
 	
@@ -52,9 +63,11 @@ public class photoDisplay {
 	public int previousIndex;
 	public int nextIndex = 0;
 	
+	/*
+	 * @param app_stage
+	 */
 	public void start(Stage app_stage) {
-		System.out.println(userlist.getCurrentUser().getCurrentAlbum());
-		System.out.println(userlist.getCurrentUser().getCurrentAlbum().getPhoto());
+		
 		app_stage.setTitle(userlist.getCurrentUser().getCurrentAlbum().getPhoto().getName() + " ");
 		
 		Photo photo = userlist.getCurrentUser().getCurrentAlbum().getPhoto();
@@ -71,6 +84,10 @@ public class photoDisplay {
 	}
 	
 	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML 
 	public void addTag(ActionEvent event) throws IOException {
 		String tagname = tagName.getText().trim();
@@ -96,16 +113,12 @@ public class photoDisplay {
 			tagPair.clear();
 			
 			ArrayList<Tag> temp = userlist.getCurrentUser().getCurrentAlbum().getPhoto().getTags();
-//			System.out.println(temp);
-//			for (int i = 0; i < temp.size(); i++) {
-//				Tag tempTag = temp.get(i);
-//				tagPair.add("Name - " + tempTag.name + ", Value - " + tempTag.value);
-//			}
+
 			
 			obsList = FXCollections.observableArrayList(temp);
 			listView.setItems(obsList);
 			listView.refresh();
-			//System.out.println(allTags.toString());
+		
 		}
 		
 	}
@@ -114,7 +127,9 @@ public class photoDisplay {
 		photoDate.setText("Date: " + userlist.getCurrentUser().getCurrentAlbum().getPhoto().getDate());
 	}
 	
-	//Change
+	/*
+	 * @param event
+	 */
 	@FXML 
 	public void deleteTag(ActionEvent event) {
 		int idx = listView.getSelectionModel().getSelectedIndex();
@@ -123,12 +138,14 @@ public class photoDisplay {
 		Tag tag = allTags.get(idx);
 		userlist.getCurrentUser().getCurrentAlbum().getPhoto().deleteTag(tag.getName(), tag.getValue());
 		
-		//NEEDS IMPLEMENTATION
+		
 		displayTags();
 	}
 	
 	
-	//NEEDS IMPLEMENTATION
+	/*
+	 * @param event
+	 */
 	@FXML
 	public void nextPhoto(ActionEvent event) {
 		
@@ -151,6 +168,9 @@ public class photoDisplay {
 		
 	}
 	
+	/*
+	 * @param event
+	 */
 	@FXML
 	public void previousPhoto(ActionEvent event) {
 		ArrayList<Photo> allPhotos = userlist.getCurrentUser().getCurrentAlbum().getPhotos();
@@ -171,6 +191,10 @@ public class photoDisplay {
 		}
 	}
 	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML
 	public void back(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/AlbumDetails.fxml"));
@@ -182,7 +206,11 @@ public class photoDisplay {
 		appStage.setScene(adminScene);
 		appStage.show();
 	}
-
+	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML
 	public void logout(ActionEvent event) throws IOException {
 		Alert confirmation = ConfirmationAlert("Logout");
@@ -197,6 +225,9 @@ public class photoDisplay {
 		}
 	}
 	
+	/*
+	 * @param error
+	 */
 	public Alert ConfirmationAlert(String function) {
 		//MODIFIED: Added a more specific confirmation dialog.
 		Alert confirmation = new Alert(AlertType.CONFIRMATION);
@@ -209,6 +240,10 @@ public class photoDisplay {
 		return confirmation;
 	}
 	
+	
+	/*
+	 * @param error
+	 */
 	public void alert(String error) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Tag Error");
@@ -217,29 +252,21 @@ public class photoDisplay {
 		return;
 	}
 	
+	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 */
 	@FXML
 	public void editCaption(ActionEvent event) throws IOException{
 		String newCaption = caption.getText().trim();
 		Alert confirm = ConfirmationAlert("Change Photo Caption.");
 		if (confirm.showAndWait().get() == ButtonType.YES) {
 			userlist.getCurrentUser().getCurrentAlbum().getPhoto().setCaption(newCaption);
-//			photo.setCaption(newCaption);
-			//NEEDS IMPLEMENTATION
-			//photo.save(photo);
+
 			userlist.write(userlist);
 		}
 		
-//		String caption = captionPhoto.getText().trim();
-//		if(caption == null) {
-//			errorAlert("please enter a valid caption");
-//		}
-//		else if (caption == photo.getCaption()) {
-//			errorAlert("please enter a different caption to re-caption");
-//	}
-//		else { 
-//			photo.setCaption(caption);
-//			listUser.write(userlist);
-//		}
 		
 	}
 }

@@ -1,3 +1,6 @@
+
+//Abhay Saxena (ans192) & GVS Karthik (vg311)
+
 package model;
 
 import java.io.File;
@@ -10,6 +13,12 @@ import java.util.HashMap;
 
 import javafx.scene.image.Image;
 
+/*
+ * @author Venkata Sai Karthik Gandrath
+ * @author Abhay Saxena 
+ * 
+ * 
+ */
 
 public class Photo implements Serializable{
 	
@@ -26,6 +35,14 @@ public class Photo implements Serializable{
 	public boolean isStockPhoto = false;
 	public String photoname;
 	
+	
+	
+	/*
+	 * constructor 
+	 * @param image
+	 * @param date		
+	 */
+	
 	public Photo(SerializableImage image, Calendar date) {
 		this.caption = "";
 		this.tags = new ArrayList<Tag>();
@@ -34,6 +51,11 @@ public class Photo implements Serializable{
 
 	}
 	
+	/*
+	 * constructor
+	 * @param image
+	 * 
+	 */
 	public Photo(Image image) {
 		this.caption = "";
 		this.image = new SerializableImage(image);
@@ -41,47 +63,81 @@ public class Photo implements Serializable{
 		
 	}
 	
-	//Setter methods
+	/*
+	 * Setter methods
+	 * @param name 
+	 */
 	public void setName(String name) {
 		this.photoname = name;
 	}
+	
+	/*
+	 * @param caption
+	 */
 	public void setCaption( String caption) {
 		this.caption = caption;
 	}
+	
+	/*
+	 * 
+	 * @param photoLocation
+	 */
 	public void setImg(File photoLocation) {
 		this.photoLocation = photoLocation;
 	}
 	
 	
-	//Getter methods
+	/*
+	 * @return photo name 
+	 */
 	public String getName() {
 		return photoname;
 	}
 	
+	/*
+	 * @return caption
+	 */
 	public String getCaption() {
 		return caption;
 	}
 	
+	/*
+	 * @return image
+	 */
 	public Image getImage() {
 		return image.getImage();
 	}
 	
+	/*
+	 * @return a list of tags
+	 */
 	public ArrayList<Tag> getTags(){
 		if(this.tags == null) this.tags = new ArrayList<>();
 		return this.tags;
 	}
+	
+	/*
+	 * @return date
+	 */
 	
 	public Calendar getDate() {
 		return date;
 	}
 	
 	
-	//New methods
+	/*
+	 * @param name
+	 * @param value 
+	 */
 	public void addNewTag(String name, String value) {
 		if(this.tags == null) this.tags = new ArrayList<>();
 		this.tags.add(new Tag(name, value));
 	}
 	
+	/*
+	 * @param name 
+	 * @param value
+	 */
 	public void deleteTag(String name, String value) {
 		for(int i = 0; i < tags.size(); i++) {
 			Tag curr = tags.get(i);
@@ -91,10 +147,18 @@ public class Photo implements Serializable{
 		}
 	}
 	
+	/*
+	 * 
+	 * return photo location
+	 */
 	public File getImg() {
 		return this.photoLocation;
 	}
 	
+	
+	/*
+	 * @return string of photo name
+	 */
 	@Override
 	public String toString() {
 		if(photoname == null) {

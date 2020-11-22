@@ -1,3 +1,6 @@
+
+//Abhay Saxena (ans192) & GVS Karthik (vg311)
+
 package controller;
 
 import java.io.IOException;
@@ -19,13 +22,25 @@ import model.listUser;
 //import model.listUser;
 //import model.User;
 
+/*
+ * @author Venkata Sai Karthik Gandrath
+ * @author Abhay Saxena 
+ * 
+ * 
+ */
+
 public class LoginController {
 	
 	
 	@FXML public Button loginButton;
 	@FXML public TextField userName;
 	public Stage primaryStage;
-
+	
+	/*
+	 * @param event 
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	@FXML
 	public void loginUser(ActionEvent event) throws ClassNotFoundException, IOException {
 
@@ -35,7 +50,7 @@ public class LoginController {
 		Parent manager;
 		String str ="";
 	
-		System.out.println(userlist + " hey");
+		
 		
 		try{
 			if(username.equals("admin")) {
@@ -56,7 +71,7 @@ public class LoginController {
 			manager = (Parent) loader.load();
 			User curr = new User(username);
 			userlist.setCurrent(curr);
-			System.out.println(userlist.getCurrentUser()+" username");
+			
 			userController usercontroller = loader.getController();
 			usercontroller.user = curr;
 			Scene userScene = new Scene(manager);
@@ -76,6 +91,9 @@ public class LoginController {
 
 	}
 	
+	/*
+	 * @param error
+	 */
 	public void errorAlert(String error) {
 		   Alert alert =  new Alert(AlertType.ERROR);
 		   alert.setTitle("Error");

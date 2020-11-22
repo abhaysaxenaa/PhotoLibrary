@@ -16,11 +16,9 @@
          </font>
       </Label>
       <TextField fx:id="tagName" alignment="CENTER" layoutX="14.0" layoutY="160.0" promptText="Tag Name" />
-      <TextField fx:id="tagValue" alignment="CENTER" layoutX="14.0" layoutY="199.0" promptText="Tag Name" text="Tag Value" />
+      <TextField fx:id="tagValue" alignment="CENTER" layoutX="14.0" layoutY="199.0" promptText="Tag Name" />
       <Button fx:id="searchButton" layoutX="47.0" layoutY="241.0" mnemonicParsing="false" onAction="#search" prefHeight="35.0" prefWidth="95.0" style="-fx-background-color: Teal;" text="Search" textFill="#f5ebeb" />
       <Button fx:id="backButton" layoutX="14.0" layoutY="353.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="95.0" text="Back" />
-      <Button fx:id="addTagButton" layoutX="214.0" layoutY="337.0" mnemonicParsing="false" onAction="#addTag" prefHeight="32.0" prefWidth="95.0" style="-fx-background-color: Yellow;" text="Add Tag" />
-      <Button fx:id="removeTagButton" layoutX="316.0" layoutY="337.0" mnemonicParsing="false" onAction="#removeTag" prefHeight="32.0" prefWidth="95.0" style="-fx-background-color: yellow;" text="Remove Tag" />
       <Button fx:id="createNewAlbumButton" layoutX="435.0" layoutY="337.0" mnemonicParsing="false" onAction="#createNewAlbum" prefHeight="32.0" prefWidth="147.0" style="-fx-background-color: Blue;" text="Copy to a New Album " textFill="WHITE" />
       <ListView fx:id="searchResults" layoutX="214.0" layoutY="70.0" prefHeight="258.0" prefWidth="368.0" />
       <DatePicker fx:id="fromDate" layoutX="14.0" layoutY="80.0" promptText="From " />
