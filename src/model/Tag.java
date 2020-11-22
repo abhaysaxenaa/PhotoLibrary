@@ -31,7 +31,7 @@ public class Tag implements Serializable{
 	}
 	
 	public String toString() {
-		return name + " - " + value;
+		return "Name:" +name + " - value: " + value;
 	}
 	
 	public boolean equals(Tag another) {

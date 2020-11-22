@@ -28,13 +28,13 @@ import model.*;
 public class photoDisplay {
 	
 	@FXML
-	public ListView<String> listView;
+	public ListView<Tag> listView;
 	
 	@FXML
 	public ImageView photoDisplay;
 	
 	@FXML
-	public Button logoutButton, backButton, saveCaptionButton, addTagButton, removeTagButton;
+	public Button logoutButton, backButton, saveCaptionButton, addTagButton, removeTagButton, nextButton, previousButton;
 	
 	@FXML
 	public TextField caption, tagName, tagValue;
@@ -44,11 +44,11 @@ public class photoDisplay {
 
 	public static listUser userlist = Photos.driver;
 	public static ArrayList<Tag> allTags = new ArrayList<>();
-	public static ArrayList<String> tagPair = new ArrayList<>();
-	public ObservableList<String> obsList;
+	public static ArrayList<Tag> tagPair = new ArrayList<>();
+	public ObservableList<Tag> obsList;
 	public static ArrayList<Photo> allPhotos = new ArrayList<Photo>();
 	public static Photo photo; 
-	public int currIndex;
+	public int currIndex=0;
 	public int previousIndex;
 	public int nextIndex = 0;
 	
@@ -61,16 +61,19 @@ public class photoDisplay {
 		Photo photo = userlist.getCurrentUser().getCurrentAlbum().getPhoto();
 //		File file = photo.getImg();
 //		Image image = new Image(file.toURI().toString());
+		this.photo = photo;
+		currIndex = userlist.getCurrentUser().getCurrentAlbum().getPhotos().indexOf(photo);
 		photoDisplay.setImage(photo.getImage());
 
 		if(!allTags.isEmpty()) {
 			listView.getSelectionModel().select(0); //select first user
 		}
+		displayTags();
 	}
 	
 	
 	@FXML 
-	public void addTag(ActionEvent event) {
+	public void addTag(ActionEvent event) throws IOException {
 		String tagname = tagName.getText().trim();
 		String value = tagValue.getText().trim();
 		Tag tag = (tagname.isEmpty() || value.isEmpty()) ? null : new Tag(tagname, value);
@@ -79,27 +82,30 @@ public class photoDisplay {
 			return;
 		}
 		userlist.getCurrentUser().getCurrentAlbum().getPhoto().addNewTag(tag.name, tag.value);
-		
+
 		displayTags();
 		//NEEDS IMPLEMENTATION
+		userlist.write(userlist);
 		//update
 		//listUser.save(userlist);
 	}
 	
 	public void displayTags() {
+		photo = userlist.getCurrentUser().getCurrentAlbum().getPhoto();
 
 		if (photo != null) {
-			Image photoImg = new Image(photo.getImg().toURI().toString());
-			photoDisplay.setImage(photoImg);
+			photoDisplay.setImage(photo.getImage());
+			this.caption.setText(photo.getCaption());
 			tagPair.clear();
 			
 			ArrayList<Tag> temp = userlist.getCurrentUser().getCurrentAlbum().getPhoto().getTags();
-			for (int i = 0; i < temp.size(); i++) {
-				Tag tempTag = temp.get(i);
-				tagPair.add("Name - " + tempTag.name + ", Value - " + tempTag.value);
-			}
+//			System.out.println(temp);
+//			for (int i = 0; i < temp.size(); i++) {
+//				Tag tempTag = temp.get(i);
+//				tagPair.add("Name - " + tempTag.name + ", Value - " + tempTag.value);
+//			}
 			
-			obsList = FXCollections.observableArrayList(tagPair);
+			obsList = FXCollections.observableArrayList(temp);
 			listView.setItems(obsList);
 			listView.refresh();
 			//System.out.println(allTags.toString());
@@ -117,9 +123,11 @@ public class photoDisplay {
 		int idx = listView.getSelectionModel().getSelectedIndex();
 		
 		ArrayList<Tag> allTags = userlist.getCurrentUser().getCurrentAlbum().getPhoto().getTags();
-		userlist.getCurrentUser().getCurrentAlbum().getPhoto().deleteTag(allTags.get(idx).name, allTags.get(idx).value);
+		Tag tag = allTags.get(idx);
+		userlist.getCurrentUser().getCurrentAlbum().getPhoto().deleteTag(tag.getName(), tag.getValue());
 		
 		//NEEDS IMPLEMENTATION
+		displayTags();
 		//update();
 		//listUser.save(userlist);
 	}
@@ -131,7 +139,7 @@ public class photoDisplay {
 		
 		ArrayList<Photo> allPhotos = userlist.getCurrentUser().getCurrentAlbum().getPhotos();
 		int previousIndex = allPhotos.size()-1;
-		if(currIndex + 1 > previousIndex) {
+		if(currIndex + 1 > allPhotos.size()-1) {
 			return;
 		}else {
 			currIndex++;
@@ -139,8 +147,9 @@ public class photoDisplay {
 			Photo photo = allPhotos.get(currIndex);
 			if(photo != null) {
 				file = photo.getImg();
-				Image image = new Image(file.toURI().toString());
-				photoDisplay.setImage(image);
+				photoDisplay.setImage(photo.getImage());
+				userlist.getCurrentUser().getCurrentAlbum().setPhoto(photo);
+				displayTags();
 			}
 		}
 		
@@ -150,7 +159,7 @@ public class photoDisplay {
 	@FXML
 	public void previousPhoto(ActionEvent event) {
 		ArrayList<Photo> allPhotos = userlist.getCurrentUser().getCurrentAlbum().getPhotos();
-		if(currIndex-1 < nextIndex) {
+		if(currIndex-1 < 0) {
 			return;
 		}
 		else {
@@ -159,14 +168,15 @@ public class photoDisplay {
 			Photo photo = allPhotos.get(currIndex);
 			if(photo != null) {
 				file = photo.getImg();
-				Image image = new Image(file.toURI().toString());
-				photoDisplay.setImage(image);
+				photoDisplay.setImage(photo.getImage());
+				userlist.getCurrentUser().getCurrentAlbum().setPhoto(photo);
+				displayTags();
 				
 			}
 		}
 	}
 	
-	
+	@FXML
 	public void back(ActionEvent event) throws IOException {
 		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/AlbumDetails.fxml"));
 		Parent sceneManager = (Parent) fxmlLoader.load();
@@ -217,9 +227,11 @@ public class photoDisplay {
 		String newCaption = caption.getText().trim();
 		Alert confirm = ConfirmationAlert("Change Photo Caption.");
 		if (confirm.showAndWait().get() == ButtonType.YES) {
-			photo.setCaption(newCaption);
+			userlist.getCurrentUser().getCurrentAlbum().getPhoto().setCaption(newCaption);
+//			photo.setCaption(newCaption);
 			//NEEDS IMPLEMENTATION
 			//photo.save(photo);
+			userlist.write(userlist);
 		}
 		
 //		String caption = captionPhoto.getText().trim();

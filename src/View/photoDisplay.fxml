@@ -6,18 +6,19 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.photoDisplay">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"  prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.photoDisplay">
    <children>
-      <ImageView fx:id="photoDisplay" fitHeight="303.0" fitWidth="281.0" layoutX="292.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="backButton" layoutX="31.0" layoutY="355.0" mnemonicParsing="false" text="Back" />
+      <ImageView fx:id="photoDisplay" fitHeight="294.0" fitWidth="286.0" layoutX="287.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="backButton" layoutX="31.0" layoutY="355.0" mnemonicParsing="false" onAction="#back" text="Back" />
       <ListView fx:id="listView" layoutX="20.0" layoutY="29.0" prefHeight="144.0" prefWidth="229.0" />
-      <Button fx:id="logoutButton" layoutX="502.0" layoutY="355.0" mnemonicParsing="false" text="Logout" />
-      <Button fx:id="removeTagButton" layoutX="20.0" layoutY="176.0" mnemonicParsing="false" style="-fx-background-color: red;" text="Remove Tag" />
+      <Button fx:id="logoutButton" layoutX="502.0" layoutY="355.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
+      <Button fx:id="removeTagButton" layoutX="20.0" layoutY="176.0" mnemonicParsing="false" onAction="#deleteTag" style="-fx-background-color: red;" text="Remove Tag" />
       <TextField fx:id="tagName" layoutX="77.0" layoutY="221.0" promptText="Tag Name" />
-      <TextField layoutX="77.0" layoutY="261.0" promptText="Tag Value" />
-      <Button fx:id="addTagButton" layoutX="173.0" layoutY="297.0" mnemonicParsing="false" style="-fx-background-color: green;" text="Add Tag" />
-      <Button fx:id="saveCaptionButton" layoutX="151.0" layoutY="355.0" mnemonicParsing="false" text="Save Caption" />
+      <TextField fx:id="tagValue" layoutX="77.0" layoutY="261.0" promptText="Tag Value" />
+      <Button fx:id="addTagButton" layoutX="173.0" layoutY="297.0" mnemonicParsing="false" onAction="#addTag" style="-fx-background-color: green;" text="Add Tag" />
+      <Button fx:id="saveCaptionButton" layoutX="151.0" layoutY="355.0" mnemonicParsing="false" onAction="#editCaption" text="Save Caption" />
       <TextField fx:id="caption" layoutX="242.0" layoutY="355.0" prefHeight="27.0" prefWidth="211.0" promptText="caption" />
+      <Button fx:id="nextButton" layoutX="430.0" layoutY="16.0" mnemonicParsing="false" onAction="#nextPhoto" text="&gt;" />
+      <Button fx:id="previousButton" layoutX="404.0" layoutY="16.0" mnemonicParsing="false" onAction="#previousPhoto" text="&lt;" />
    </children>
 </AnchorPane>

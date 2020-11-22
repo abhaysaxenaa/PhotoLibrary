@@ -16,7 +16,7 @@ public class Photo implements Serializable{
 	private static final long serialVersionUID = -8485172240653089216L;
 	private SerializableImage image;
 	private String caption;
-	private ArrayList<Tag>tags;
+	private ArrayList<Tag> tags = new ArrayList<>();
 	private Calendar date;
 	
 	//Not sure if these need to be used
@@ -28,14 +28,16 @@ public class Photo implements Serializable{
 	
 	public Photo(SerializableImage image, Calendar date) {
 		this.caption = "";
-		tags = new ArrayList<Tag>();
+		this.tags = new ArrayList<Tag>();
 		this.date = date;
 		this.date.set(Calendar.MILLISECOND, 0);
 
 	}
 	
 	public Photo(Image image) {
+		this.caption = "";
 		this.image = new SerializableImage(image);
+		this.tags = new ArrayList<Tag>();
 		
 	}
 	
@@ -59,7 +61,8 @@ public class Photo implements Serializable{
 	}
 	
 	public ArrayList<Tag> getTags(){
-		return tags;
+		if(this.tags == null) this.tags = new ArrayList<>();
+		return this.tags;
 	}
 	
 	public Calendar getDate() {
@@ -69,7 +72,8 @@ public class Photo implements Serializable{
 	
 	//New methods
 	public void addNewTag(String name, String value) {
-		tags.add(new Tag(name, value));
+		if(this.tags == null) this.tags = new ArrayList<>();
+		this.tags.add(new Tag(name, value));
 	}
 	
 	public void deleteTag(String name, String value) {

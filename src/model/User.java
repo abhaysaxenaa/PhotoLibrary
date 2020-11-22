@@ -152,6 +152,8 @@ public class User implements Serializable {
 		return confirmation;
 	}
 	
+	
+	
 	//public ArrayList<Photo> getSortedPhotos(){};
 	
 	

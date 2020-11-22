@@ -70,10 +70,13 @@ public class listUser implements Serializable{
 	
 	public void setCurrent(User present) {
 		for(int i = 0; i < allUsers.size(); i++) {
-			if(allUsers.get(i).equals(present)) {
+			System.out.println(allUsers.get(i));
+			if(allUsers.get(i).getUsername().equals(present.getUsername())) {
+				
 				this.currUserIdx = i;
 			}
 		}
+		System.out.println(this.currUserIdx+" "+allUsers.get(this.currUserIdx));
 		this.present = present;
 	}
 	public String toString() {

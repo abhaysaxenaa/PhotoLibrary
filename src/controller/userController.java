@@ -216,6 +216,8 @@ public class userController {
 	
 	public void update() {
 		user = userlist.getCurrentUser();
+		System.out.println(user.getUsername());
+		System.out.println(user.getAlbums()+"albums");
 		
 		allAlbums.clear();
 		for (int i = 0; i < user.getAlbums().size(); i++) {

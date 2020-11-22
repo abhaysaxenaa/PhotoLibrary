@@ -56,6 +56,7 @@ public class LoginController {
 			manager = (Parent) loader.load();
 			User curr = new User(username);
 			userlist.setCurrent(curr);
+			System.out.println(userlist.getCurrentUser()+" username");
 			userController usercontroller = loader.getController();
 			usercontroller.user = curr;
 			Scene userScene = new Scene(manager);
