@@ -51,6 +51,8 @@ public class listUser implements Serializable{
 		allUsers.remove(idx);
 	}
 	
+	
+	//Getter methods
 	public  ArrayList<User> getList(){
 		return allUsers;
 	}
@@ -68,6 +70,8 @@ public class listUser implements Serializable{
 		return allUsers.get(currUserIdx);
 	}
 	
+	
+	//Setter methods
 	public void setCurrent(User present) {
 		for(int i = 0; i < allUsers.size(); i++) {
 			System.out.println(allUsers.get(i));

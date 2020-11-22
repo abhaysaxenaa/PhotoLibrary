@@ -8,6 +8,8 @@ import java.util.Optional;
 import javax.security.auth.callback.Callback;
 
 import app.Photos;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +30,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import model.Album;
 import model.Photo;
+import model.Tag;
 import model.User;
 import model.listUser;
 
@@ -37,10 +40,13 @@ public class searchController {
 	public Button searchButton, addTagButton, removeTagButton, createNewAlbumButton, backButton;
 	
 	@FXML
-	TextField  tagName;
+	TextField  tagName, tagValue;
 	
 	@FXML
-	ListView<Photo> listView;
+	ListView<String> tags;
+	
+	@FXML
+	ListView<Photo> searchResults;
 	
 	@FXML
 	DatePicker fromDate, toDate;
@@ -50,6 +56,9 @@ public class searchController {
 	listUser userlist = Photos.driver;
 	
 	public ArrayList<Photo> allPhotos = new ArrayList<Photo>();
+	public ArrayList<Tag> allTags = new ArrayList<Tag>();
+	public ArrayList<String> tagPairs = new ArrayList<String>();
+	public ObservableList<String> obsShowTags;
 	
 
 	public void start() {
@@ -67,19 +76,40 @@ public class searchController {
 	}
 	@FXML
 	public void addTag(ActionEvent event) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Tag.fxml"));
-		Parent parent = (Parent) loader.load();
-		searchController controller = loader.<searchController>getController();
-		Scene scene = new Scene(parent);
-		Stage appStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		controller.start();
-		appStage.setScene(scene);
-		appStage.show();
+		if (tagName.getText().isEmpty() || tagValue.getText().isEmpty()) {
+			alert("One of the Tag property is missing.");
+			return;
+		} else {
+			//Basically the update method.
+			Tag newTag = new Tag(tagName.getText().trim(), tagValue.getText().trim());
+			tagName.clear();
+			tagValue.clear();
+			allTags.add(newTag);
+			
+			tagPairs.clear();
+			for(Tag tempTag : allTags) {
+				tagPairs.add("Tag Name - " + tempTag.name +    ", Tag Value - " + tempTag.value);
+			}
+			obsShowTags = FXCollections.observableArrayList(tagPairs);
+			tags.setItems(obsShowTags);
+		}
 	}
 	
 	@FXML
 	public void removeTag(ActionEvent event) {
-		
+		int idx = tags.getSelectionModel().getSelectedIndex();
+		if (idx < 0) {
+			alert("Cannot remove a non-existent tag!");
+		} else {
+			errorAlert("Remove Tag");
+			allTags.remove(idx);
+			tagPairs.clear();
+			for(Tag tempTag : allTags) {
+				tagPairs.add("Tag Name - " + tempTag.name +    ", Tag Value - " + tempTag.value);
+			}
+			obsShowTags = FXCollections.observableArrayList(tagPairs);
+			tags.setItems(obsShowTags);
+		}
 	}
 	
 public void back(ActionEvent event) throws IOException {
@@ -97,7 +127,7 @@ public void back(ActionEvent event) throws IOException {
 	
 	@FXML
 	public void createNewAlbum(ActionEvent event) {
-		if(listView.getItems().isEmpty()) {
+		/*if(searchResults.getItems().isEmpty()) {
 			errorAlert("create a new album");
 		}
 		else {
@@ -155,7 +185,7 @@ public void back(ActionEvent event) throws IOException {
 				   }
 				   listUser.write(userlist);
 			   }
-		}
+		}*/
 	}
 	
 	public ArrayList<Photo> photosInAlbum(){
@@ -181,6 +211,18 @@ public void back(ActionEvent event) throws IOException {
 		confirmation.setTitle("Confirmation Dialog");
 		confirmation.setHeaderText("Operation: Create New Album" );
 		confirmation.setContentText("Are you sure you want to " + function.toLowerCase() );
+
+		confirmation.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
+
+		return confirmation;
+	}
+	
+	public Alert alert(String function) {
+		//MODIFIED: Added a more specific confirmation dialog.
+		Alert confirmation = new Alert(AlertType.ERROR);
+		confirmation.setTitle("Error Dialog");
+		confirmation.setHeaderText("Tag Error" );
+		confirmation.setContentText("Please enter a valid tag!");
 
 		confirmation.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 

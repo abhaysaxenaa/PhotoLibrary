@@ -57,7 +57,6 @@ public class photoDisplay {
 		System.out.println(userlist.getCurrentUser().getCurrentAlbum().getPhoto());
 		app_stage.setTitle(userlist.getCurrentUser().getCurrentAlbum().getPhoto().getName() + " ");
 		
-		//update();
 		Photo photo = userlist.getCurrentUser().getCurrentAlbum().getPhoto();
 //		File file = photo.getImg();
 //		Image image = new Image(file.toURI().toString());
@@ -86,8 +85,6 @@ public class photoDisplay {
 		displayTags();
 		//NEEDS IMPLEMENTATION
 		userlist.write(userlist);
-		//update
-		//listUser.save(userlist);
 	}
 	
 	public void displayTags() {
@@ -128,8 +125,6 @@ public class photoDisplay {
 		
 		//NEEDS IMPLEMENTATION
 		displayTags();
-		//update();
-		//listUser.save(userlist);
 	}
 	
 	

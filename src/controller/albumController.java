@@ -60,26 +60,12 @@ public class albumController {
 	public int nextIndex = 0;
 	
 	public void start() {
-		update();
+		initialize();
 		if (!allPhotos.isEmpty()) {
 			listView.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> {
 				thumbnail(newValue);
-	//		update();
 			});
-//			ArrayList<String> allAlbums = new ArrayList<String>();
-//			copylist.setItems(FXCollections.observableArrayList(allAlbums));
-//			movelist.setItems(FXCollections.observableArrayList(allAlbums));
 		}
-		
-//		this.user = user;
-//		this.album = album;
-//		listView.setCellFactory(new Callback<ListView<Photo>, ListCell<Photo>>(){
-//			@Override
-//			public ListCell<Photo> call(ListView<Photo> p) {
-//				return new PhotoCell();
-//			}
-//		});
-		
 	}
 	
 	@FXML
@@ -97,28 +83,13 @@ public class albumController {
 	}
 	
 	public void displayDate() {
-		photoDate.setText("Date: " + userlist.getCurrentUser().getCurrentAlbum().getPhoto().getDate());
+		photoDate.setText("Date - " + userlist.getCurrentUser().getCurrentAlbum().getPhoto().getDate());
 	}
 	
 	public void thumbnail(Photo photo) {
 		System.out.println(photo);
-//		Photo photo = listView.getSelectionModel().getSelectedItem();
-		File file;
 		if(photo != null) {
-			file = photo.getImg();
-			
-			if(userlist.getCurrentUser().getUsername().equals("stock") && photo.isStockPhoto) {
-				String str = file.getAbsolutePath();
-				int stockPhoto = str.indexOf("stockphotos");
-				String newfilepath = str.substring(stockPhoto, str.length());
-				File img = new File(newfilepath);
-				Image image = new Image(img.toURI().toString());
-				photoView.setImage(image);
-		}
-			else {
-//				Image image = new Image(file.toURI().toString());
-				photoView.setImage(photo.getImage());
-			}
+			photoView.setImage(photo.getImage());
 			userlist.getCurrentUser().getCurrentAlbum().setPhoto(photo);
 		}
 	}
@@ -136,17 +107,14 @@ public class albumController {
         }
         if(file != null) {
         	Image img = new Image(file.toURI().toString());
-        	//SerializableImage SImg = new SerializableImage(img);
-        	//SImg.setImage(img);
-        	Calendar date = Calendar.getInstance();
         	
         	Photo newPhoto = new Photo(img);
         	newPhoto.setName(file.getName());
         	//album.addPhoto(newPhoto);
         	userlist.getCurrentUser().getCurrentAlbum().addPhoto(newPhoto);
         	listUser.write(userlist);
-//        	photoView.setImage(newPhoto.getImage());
-        	update();
+        	photoView.setImage(newPhoto.getImage());
+        	initialize();
         }
 	}
 
@@ -166,14 +134,10 @@ public class albumController {
 		}
 		
 		if (albumCheck) {
-			Album newAlbum = allAlbums.get(idx);
-			Photo photo = listView.getSelectionModel().getSelectedItem();
-			newAlbum.addPhoto(photo);
+			allAlbums.get(idx).addPhoto(listView.getSelectionModel().getSelectedItem());
 			album.remove(listView.getSelectionModel().getSelectedIndex());
-			
-			//newAlbum.write(newAlbum);
-			//album.write(album);
-			update();
+			successAlert("Successfully moved photo!");
+			initialize();
 		} else {
 			errorAlert("Invalid Album");
 			return;
@@ -188,7 +152,7 @@ public class albumController {
 		String copyLocation = copyPhoto.getText().trim();
 		boolean albumCheck = false;
 		int idx = 0;;
-		//Check if move album exists
+		//Check if copy album exists
 		for (int i = 0; i < allAlbums.size(); i++) {
 			Album temp = allAlbums.get(i);
 			if (temp.getName().equals(copyLocation)) {
@@ -198,79 +162,21 @@ public class albumController {
 		}
 		
 		if (albumCheck) {
-			Album newAlbum = allAlbums.get(idx);
-			Photo photo = listView.getSelectionModel().getSelectedItem();
-			newAlbum.addPhoto(photo);
-			
-		//	newAlbum.save(newAlbum);
+			allAlbums.get(idx).addPhoto(listView.getSelectionModel().getSelectedItem());
+			successAlert("Successfully copied photo!");
 		} else {
+			errorAlert("Invalid Album");
 			return;
 		}
-		errorAlert("Invalid Album");
 	}
 	
-	/*@FXML
-	public void nextPhoto(ActionEvent event) {
-		
-		
-		int previousIndex = allPhotos.size()-1;
-		if(currIndex + 1 > previousIndex) {
-			return;
-		}else {
-			currIndex++;
-			File file;
-			Photo photo = allPhotos.get(currIndex);
-			if(photo != null) {
-				file = photo.getImg();
-				Image image = new Image(file.toURI().toString());
-				photoView.setImage(image);
-			}
-		}
-		
-		
-	}
-	@FXML
-	public void previousPhoto(ActionEvent event) {
-		if(currIndex-1 < nextIndex) {
-			return;
-		}
-		else {
-			currIndex--;
-			File file;
-			Photo photo = allPhotos.get(currIndex);
-			if(photo != null) {
-				file = photo.getImg();
-				Image image = new Image(file.toURI().toString());
-				photoView.setImage(image);
-				
-			}
-		}
-	}*/
-	
-	public void update() {
-		/*if (allPhotos.size() > 0) {
-			currIndex = 0;
-			previousIndex = allPhotos.size()-1;
-			File file;
-			if (allPhotos.get(0) != null) {
-				Photo photo = allPhotos.get(0);
-				if(photo != null) {
-					file = photo.getImg();
-					Image image = new Image(file.toURI().toString());
-					photoView.setImage(image);
-					obsList = FXCollections.observableArrayList(allPhotos);
-					listView.setItems(obsList);
-					listView.refresh();
-				}
-			}
-		}*/
-		
+	public void initialize() {
 		allPhotos.clear();
 		for (int i = 0; i < album.getPhotos().size(); i++) {
 			System.out.println(i+" photo "+album.getPhotos().get(i).getName());
 			allPhotos.add(album.getPhotos().get(i));
 		}
-
+		listView.refresh();
 		obsList = FXCollections.observableArrayList(allPhotos);
 		listView.setItems(obsList);
 		listView.refresh();
@@ -284,23 +190,15 @@ public class albumController {
 			errorAlert("No photo to delete.");
 			return;
 		}
-		Alert confirmation = ConfirmationAlert("Are you Sure");
+		Alert confirmation = ConfirmationAlert("Delete the song");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			album.remove(photoIdx);
-			update();
-			int lastuserindex = album.getPhotos().size();
-				if (album.getPhotos().size() == 1) {
-					listView.getSelectionModel().select(0);
-				} else if (photoIdx == lastuserindex) {
-					listView.getSelectionModel().select(lastuserindex-1);
-				} else { 
-					listView.getSelectionModel().select(photoIdx);
-				}
-				if (allPhotos.size() == 0) {
-					photoView.setImage(null);
-				} else {
-					listView.getSelectionModel().select(0);
-				}
+			initialize();
+			if (allPhotos.size() == 0) {
+				photoView.setImage(null);
+			} else {
+				listView.getSelectionModel().select(0);
+			}
 		// implement 	reload();
 		listUser.write(userlist);
 		}
@@ -320,18 +218,7 @@ public class albumController {
 //			listUser.write(userlist);
 //		}
 //	}
-	
-//	@FXML
-//	public void search(ActionEvent event) throws IOException{
-//		FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Search.fxml"));
-//		Parent parent = (Parent) loader.load();
-//		searchController controller = loader.<searchController>getController();
-//		Scene scene = new Scene(parent);
-//		Stage appStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-//		controller.start();
-//		appStage.setScene(scene);
-//		appStage.show();	
-//	}
+
 	
 	@FXML
 	public void back(ActionEvent event) throws IOException {
@@ -348,7 +235,7 @@ public class albumController {
 
 	@FXML
 	public void logout(ActionEvent event) throws IOException {
-		Alert confirmation = ConfirmationAlert("Are you Sure");
+		Alert confirmation = ConfirmationAlert("Logout");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Login.fxml"));
 			Parent manager = (Parent) loader.load();
@@ -363,12 +250,21 @@ public class albumController {
 		//MODIFIED: Added a more specific confirmation dialog.
 		Alert confirmation = new Alert(AlertType.CONFIRMATION);
 		confirmation.setTitle("Confirmation Dialog");
-		confirmation.setHeaderText("Operation: "+ function + "ing a song.");
-		confirmation.setContentText("Are you sure you want to " + function.toLowerCase() + " this Photo?");
+		confirmation.setHeaderText("Operation: "+ function);
+		confirmation.setContentText("Are you sure you want to " + function.toLowerCase() + "?");
 
 		confirmation.getButtonTypes().setAll(ButtonType.YES, ButtonType.NO);
 
 		return confirmation;
+	}
+	
+	public void successAlert(String error) {
+		   Alert alert =  new Alert(AlertType.INFORMATION);
+		   alert.setTitle("Success");
+		   alert.setHeaderText("Success!");
+		   String content = error;
+		   alert.setContentText(content);
+		   alert.showAndWait();
 	}
 	
 	public void errorAlert(String error) {

@@ -50,7 +50,7 @@ public class userController {
 	public void bootUp() {
 			
 		 
-		update();
+		initialize();
 		
 		/*allAlbums.clear();
 		for (int i = 0; i < allAlbums.size(); i++) {
@@ -85,7 +85,7 @@ public class userController {
 		else {
 			userlist.getCurrentUser().createAlbum(album);
 			System.out.println(userlist);
-			update();
+			initialize();
 			//user.createAlbum(album);
 			//obsList.add(album);
 			//listView.setItems(obsList);
@@ -112,21 +112,19 @@ public class userController {
 		Album selectedAlbum = listView.getSelectionModel().getSelectedItem();
 		
 		
-		Alert confirmation = ConfirmationAlert("Are you Sure");
+		Alert confirmation = ConfirmationAlert("Are you sure you want to rename this album?");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			if(newName == null) {
 				errorAlert("Empty Album Name");
 			}
-			else if(newName.equals(selectedAlbum.getName())) {
-				errorAlert("Name already exists");
-			} else if (userlist.getCurrentUser().checkAlbumInList(newName)){
-				errorAlert("Another album with that name exists. Please try another name.");
+			else if(newName.equals(selectedAlbum.getName()) || userlist.getCurrentUser().checkAlbumInList(newName)) {
+				errorAlert("Invalid Album name.");
 			}
 			else {
 				 
 				selectedAlbum.rename(newName);
 				User.write(userlist.getCurrentUser());
-				update();
+				initialize();
 				listView.refresh();
 				albumName.clear();
 				try {
@@ -145,11 +143,11 @@ public class userController {
 	@FXML 
 	public void deleteAlbum(ActionEvent event) throws IOException{
 		int index = listView.getSelectionModel().getSelectedIndex();
-		Alert confirmation = ConfirmationAlert("Are you Sure");
+		Alert confirmation = ConfirmationAlert("Are you sure you want to delete this album?");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			
 			user.deleteAlbum(index);
-			update();
+			initialize();
 			User.write(userlist.getCurrentUser());
 			listView.getItems().remove(album);
 			try {
@@ -202,7 +200,7 @@ public class userController {
 	@FXML
 	public void logout(ActionEvent event) throws IOException{
 		listUser.write(userlist);
-		Alert confirmation = ConfirmationAlert("Are you Sure");
+		Alert confirmation = ConfirmationAlert("Logout?");
 		if (confirmation.showAndWait().get() == ButtonType.YES) {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/Login.fxml"));
 			Parent manager = (Parent) loader.load();
@@ -214,7 +212,7 @@ public class userController {
 	}
 	
 	
-	public void update() {
+	public void initialize() {
 		user = userlist.getCurrentUser();
 		System.out.println(user.getUsername());
 		System.out.println(user.getAlbums()+"albums");

@@ -30,13 +30,9 @@ public class User implements Serializable {
 		this.username = username;
 		allAlbums = new ArrayList<Album>();
 	}
-	public User getUserName() {
-		return user;
-		
-	}
-	public String getUsername() {
-		return username;
-	}
+	
+	
+	//Setter methods
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -45,6 +41,15 @@ public class User implements Serializable {
 		this.currAlbum = al;
 	}
 	
+	public void renameAlbum(String  username) {
+		this.username = username;
+	}
+	
+	public void setAlbums(ArrayList<Album> allAlbums) {
+		this.allAlbums = allAlbums;
+	}
+	
+	//Getter methods
 	public ArrayList<Album> getAlbums(){
 		return allAlbums;
 	}
@@ -52,7 +57,13 @@ public class User implements Serializable {
 	public Album getCurrentAlbum() {
 		return currAlbum;
 	}
-	
+	public User getUserName() {
+		return user;
+		
+	}
+	public String getUsername() {
+		return username;
+	}
 	public String toString() {
 		return this.username.toLowerCase();
 	}
@@ -61,25 +72,16 @@ public class User implements Serializable {
 		return this.username.equals(other.username);
 	}
 	
-	//Similar methods to Github
+
 	public void createAlbum(Album newAlbum) {
-		
-		/*else if(user.checkAlbumInList(newAlbum)== false) {
-			errorAlert(" Album Name already exists");
-		}*/
 		
 		if (allAlbums.contains(newAlbum)) {
 			errorAlert(" Album Name already exists");
 		}
 		else {
-			//obsList.add(newAlbum);
 			System.out.println("new:" + newAlbum);
-			
 			allAlbums.add(newAlbum);
-			//user.createAlbum(album);
-			
 
-			
 		}
 	}
 	
@@ -90,39 +92,14 @@ public class User implements Serializable {
 		else{errorAlert("empty album list");}
 				
 	}
-	
-	public void renameAlbum(String  username) {
-		this.username = username;
-	}
-	public void setAlbums(ArrayList<Album> allAlbums) {
-		this.allAlbums = allAlbums;
-	}
+
 	public boolean checkAlbumInList(String album) {
 		
 		for (int i = 0; i < allAlbums.size(); i++) {
 			if (album.equals(allAlbums.get(i).getName())) {
 				return true;
-				
-				//Set new current user
-				//Set logged in to true
 			}
 		}
-		
-	
-			
-		
-//			
-//		for (int i = 0; i < allAlbums.size(); i++) {
-//			if (album.equals(allAlbums.get(i).getName())) {
-//				System.out.println(album + " " + i);
-//				
-//			}
-//				return true;
-//				
-				//Set new current user
-				//Set logged in to true
-//			}
-//	}
 		return false;
 	}
 	
@@ -151,11 +128,4 @@ public class User implements Serializable {
 
 		return confirmation;
 	}
-	
-	
-	
-	//public ArrayList<Photo> getSortedPhotos(){};
-	
-	
-	//Storing and Loading
 }

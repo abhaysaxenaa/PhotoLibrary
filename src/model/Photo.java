@@ -41,15 +41,21 @@ public class Photo implements Serializable{
 		
 	}
 	
+	//Setter methods
 	public void setName(String name) {
 		this.photoname = name;
 	}
-	
-	public String getName() {
-		return photoname;
-	}
 	public void setCaption( String caption) {
 		this.caption = caption;
+	}
+	public void setImg(File photoLocation) {
+		this.photoLocation = photoLocation;
+	}
+	
+	
+	//Getter methods
+	public String getName() {
+		return photoname;
 	}
 	
 	public String getCaption() {
@@ -87,10 +93,6 @@ public class Photo implements Serializable{
 	
 	public File getImg() {
 		return this.photoLocation;
-	}
-	
-	public void setImg(File photoLocation) {
-		this.photoLocation = photoLocation;
 	}
 	
 	@Override

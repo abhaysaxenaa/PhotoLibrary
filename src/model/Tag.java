@@ -15,19 +15,20 @@ public class Tag implements Serializable{
 	}
 	
 	
-	public  String getName() {
-		return name;
-	}
+	//Setter methods
 	public void setName() {
 		this.name = name;
 	}
-	
-	public String getValue() {
-		return value;
-	}
-	
 	public void setValue() {
 		this.value = value;
+	}
+	
+	//Getter methods
+	public  String getName() {
+		return name;
+	}
+	public String getValue() {
+		return value;
 	}
 	
 	public String toString() {

@@ -25,15 +25,20 @@ public class Album implements Serializable{
 		allPhotos = new ArrayList<Photo>();
 	}
 	
+	//Setter methods
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public String getName() {
-		return this.name;
-	}
 	public void setPhoto(Photo photo) {
 		this.currPhotoIdx = allPhotos.indexOf(photo);
+	}
+	public void rename(String name) {
+		this.name = name;
+	}
+	
+	//Getter Methods
+	public String getName() {
+		return this.name;
 	}
 	public Photo getPhoto() {
 		return allPhotos.get(currPhotoIdx);
@@ -45,9 +50,6 @@ public class Album implements Serializable{
 	
 	public boolean equals(Album other) {
 		return name.equals(other.name);
-	}
-	public void rename(String name) {
-		this.name = name;
 	}
 	
 	public void addPhoto(Photo photo) {
@@ -61,8 +63,6 @@ public class Album implements Serializable{
 		if(name == null) {
 			return "There are no albums";
 			}
-		
-		
 		return name;
 	}
 	public ArrayList<Photo> getPhotos(){
